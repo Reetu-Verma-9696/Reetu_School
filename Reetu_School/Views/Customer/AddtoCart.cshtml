@@ -1,0 +1,89 @@
+﻿@{
+    ViewData["Title"] = "AddtoCart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+   
+}
+<div class="container">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-3">
+                    <img src="~/images/img.png" alt="firstimage" data-id="1" data-product="Product-Image" data-itemcode="001" data-uom="pcs" onclick="AddtoCart(this);" style="height:152px;width:152px;" />
+
+                </div>
+                <div class="col-md-3">
+                    <img src="~/images/img.png" alt="firstimage" data-id="2" data-product="Product-Image" data-itemcode="001" data-uom="pcs" onclick="AddtoCart(this);" style="height:152px;width:152px;" />
+
+                </div>
+                <div class="col-md-3">
+                    <img src="~/images/img.png" alt="firstimage" data-id="3" data-product="Product-Image" data-itemcode="001" data-uom="pcs" onclick="AddtoCart(this);" style="height:152px;width:152px;" />
+
+                </div>
+                <div class="col-md-3">
+                    <img src="~/images/img.png" alt="firstimage" data-id="4" data-product="Product-Image" data-itemcode="001" data-uom="pcs" onclick="AddtoCart(this);" style="height:152px;width:152px;" />
+
+                </div>
+                <div class="col-md-3">
+                    <img src="~/images/img.png" alt="firstimage" data-id="5" data-product="Product-Image" data-itemcode="001" data-uom="pcs" onclick="AddtoCart(this);" style="height:152px;width:152px;" />
+
+                </div>
+                <div class="col-md-3">
+                    <img src="~/images/img.png" alt="firstimage" data-id="6" data-product="Product-Image" data-itemcode="001" data-uom="pcs" onclick="AddtoCart(this);" style="height:152px;width:152px;" />
+
+                </div>
+                <div class="col-md-3">
+                    <img src="~/images/img.png" alt="firstimage" data-id="7" data-product="Product-Image" data-itemcode="001" data-uom="pcs" onclick="AddtoCart(this);" style="height:152px;width:152px;" />
+
+                </div>
+                <div class="col-md-3">
+                    <img src="~/images/img.png" alt="firstimage" data-id="8" data-product="Product-Image" data-itemcode="001" data-uom="pcs" onclick="AddtoCart(this);" style="height:152px;width:152px;" />
+
+                </div>
+                <div class="col-md-3">
+                    <img src="~/images/img.png" alt="firstimage" data-id="9" data-product="Product-Image" data-itemcode="001" data-uom="pcs" onclick="AddtoCart(this);" style="height:152px;width:152px;" />
+
+                </div>
+                <div class="col-md-3">
+                    <img src="~/images/img.png" alt="firstimage" data-id="10" data-product="Product-Image" data-itemcode="001" data-uom="pcs" onclick="AddtoCart(this);" style="height:152px;width:152px;" />
+
+                </div>
+                <div class="col-md-3">
+                    <img src="~/images/img.png" alt="firstimage" data-id="11" data-product="Product-Image" data-itemcode="001" data-uom="pcs" onclick="AddtoCart(this);" style="height:152px;width:152px;" />
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        function AddtoCart(imgElement) {
+            const imageUrl = imgElement.src;
+            const imageId = imgElement.getAttribute('data-id');
+            const imageproductid = imgElement.getAttribute('data-product');
+            const imageItemcode = imgElement.getAttribute('data-itemcode');
+            const imageUom = imgElement.getAttribute('data-uom');
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const itemIndex = cart.findIndex(item => item.id === imageId);
+            if (itemIndex === -1) {
+                cart.push({
+                    id: imageId,
+                    url: imageUrl,
+                    productid: imageproductid,
+                    Itemcode : imageItemcode,
+                    Uom: imageUom
+
+
+                });
+
+                localStorage.setItem('cart', JSON.stringify(cart));
+                alert('Item added to cart!');
+                window.location.href = "/Customer/Cart";
+            }
+            else {
+                alert('Item already in cart.');
+            }
+        }
+    </script>
+}
+

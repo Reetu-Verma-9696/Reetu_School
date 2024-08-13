@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="row">
+        <label>UserId</label>
+        <input type="text" class="form-control" id="username" />
+        <label>Password</label>
+        <input type="password" class="form-control" id="password" />
+        <input type="button" onclick="SaveData();" value="submit" />
+    </div>
+
+</div>
+@section Scripts{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="~/projectjs/login.js"></script>
+    
+}
