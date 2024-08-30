@@ -23,19 +23,23 @@ namespace Reetu_School.Controllers
         {
             return View();
         }
+        public IActionResult SignUPList()
+        {
+            return View();
+        }
         [HttpPost]
         public async Task<IActionResult> SignUp([FromBody] SignUp SignUp)
         {
             var data = await _mediator.Send(SignUp);
             return Ok(data);
         }
-       // [HttpGet]
+        [HttpGet]
 
-        //public async Task<IActionResult> GetSignUpDetail(int Id)
-        //{
-        //    var data = await _mediator.Send(new GetSignUpDetail { Id = Id });
-        //        return Ok(data);
-        //}
+        public async Task<IActionResult> GetSignUpDetail(int Id)
+        {
+            var data = await _mediator.Send(new GetSignUpDetail { Id = Id });
+            return Ok(data);
+        }
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] Login Login)
         {

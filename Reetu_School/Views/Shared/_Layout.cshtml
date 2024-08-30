@@ -10,133 +10,101 @@
     <link href="~/css/bootstrap.min.css" rel="stylesheet" />
     <script src="~/js/bootstrap.min.js"></script>
     <script src="~/js/jquery.min.js"></script>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
+    <style>
+        .haeder {
+            width: 100%;
+            box-shadow: 0px 2px 10px 0px #ccc;
+            display: flex;
+            position: sticky; 
+            top: 0; 
+            background-color: white; 
+            z-index: 1000; 
+        }
+
+        .haederleft {
+            width: 68%;
+            display: flex;
+            margin-left:2%;
+        }
+
+        .logo{
+            padding:5px;
+        }
+        .haederright {
+            width: 10%;
+            display: flex;
+        }
+        .menu>ul{
+            display:flex;
+            list-style:none;
+            gap:40px;
+            align-items:center;
+            justify-content:space-around;
+            padding: 10px;
+            font-weight:600;
+        }
+        .logoheader{
+            width: 75px;
+            height: 46px;
+        }
+
+        .fontcol {
+            color:red !important;
+            text-decoration:none !important;
+        }
+
+    .footer {
+        background-color: tomato; 
+        padding: 50px; 
+        text-align: center;
+        display: block;
+        visibility: visible;
+    }
+    </style>
 </head>
-<style>
-    .navbar{
-        background-color:forestgreen !important;
-    }
-
-    .navbar-brand{
-        color:#fff !important;
-    }
-
-    .cus-home {
-        text-decoration: none;
-        color: white !important;
-    }
-
-    .navbar-nav{
-        justify-content: space-around;
-        display: -webkit-inline-box;
-    }
-
-    .cus-home-home {
-        font-weight: bold;
-        background-color:forestgreen !important;
-    }
-
-    .cus-home-about {
-        font-weight: bold;
-        background-color: forestgreen !important;
-    }
-
-    .cus-home-contact {
-        padding-right: 363px;
-        font-weight: bold;
-        background-color: forestgreen !important;
-    }
-
-    .navbar-inverse{
-        border:none !important;
-        border-radius:0px !important;
-    }
-
-    .cus-home-home {
-        color: red;
-        font-weight: bold;
-    }
-
-    .cus-home-about {
-        color: blue;
-       
-    }
-
-    .cus-home-contact {
-        text-decoration: none;
-    }
-
-    .navbar-brand img {
-        height: 40px;
-        display: inline-block;
-    }
-
-    .navbar-nav > li {
-        margin-left: 10px;
-    }
-
-    .navbar-brand{
-        float: left;
-        height: 0px;
-        font-size: 18px;
-        line-height: 20px;
-
-    }
-    .navbar-collapse{
-        margin-top: -3%;
-    }
-    .container-fluid > .navbar-collapse, .container-fluid > .navbar-header, .container > .navbar-collapse, .container > .navbar-header {
-        margin-right:auto !important;
-        margin-left:auto!important;
-    }
-    body{
-        overflow-x:hidden;
-    }
-</style>
 <body>
-    <header>
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">
-                    </a>
-                </div>
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="active">
-                        <a href="/Home/Index" class="cus-home cus-home-home">Home</a></li>
-                        <li><a href="/Home/About" class="cus-home cus-home-about">About</a></li>
-                        <li><a href="/Home/Contact" class="cus-home cus-home-contact">ContactUs</a></li>
-                        <li><a href="/Account/SignUp"><span class="glyphicon glyphicon-user cus-home"></span> Sign Up</a></li>
-                        <li><a href="/Account/Login"><span class="glyphicon glyphicon-log-in cus-home"></span> Login</a></li>
-                    </ul>
-                </div>
+    <div class="haeder">
+        <div class="haederleft">
+            <div class="logo">
+                <a href="/Home/Index">
+                    <img src="~/images/logo6.png" class="logoheader" />
+                </a>
+              
             </div>
-        </nav>
-
-        <div class="container">
            
         </div>
+        <div class="haederright">
+            <div class="menu">
+                <ul>
+                    <li><a href="/Home/About" class="fontcol">About</a></li>
+                    <li><a href="/Account/SignUp" class="fontcol">SignUp</a></li>
+                    <li><a href="/Account/Login" class="fontcol">Login</a></li>
+                    <li><a href="/Home/Contact" class="fontcol">Contact</a></li>
+                </ul>
 
-    </header>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-  
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            
+
+    <footer>
+        <div class="footer">
+
         </div>
     </footer>
+    <script src="~/js/jquery-3.5.1.min.js"></script>
+    <script src="~/js/jquery-migrate-3.3.2.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-  @*  <script src="~/content/css/cdnjs/jquery-3.7.1.min.js"></script>*@
-    @RenderSection("Scripts", required: false)
-    <script src="~/js/jquery-migrate-3.3.2.min.js"></script>
-    <script src="~/js/jquery-3.5.1.min.js"></script>
     <script src="~/js/sweetalert2@10.js"></script>
+    @RenderSection("Scripts", required: false)
+
 </body>
 </html>
