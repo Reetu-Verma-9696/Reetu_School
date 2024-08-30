@@ -43,7 +43,7 @@ namespace Reetu_School.Common
                 return result;
             }
         }
-        public static object QueryFirstOrDefault(string procedureName, object parameters)
+        public static async Task<object> QueryFirstOrDefault(string procedureName, object parameters)
         {
             dynamic Result = null;
             using (IDbConnection db = ORMConnection.GetConnection())
@@ -52,6 +52,28 @@ namespace Reetu_School.Common
                 {
                     db.Open();
                     Result = db.QueryFirstOrDefault<object>(procedureName, parameters, commandType: CommandType.StoredProcedure);
+                    Result = ResponseResult.SuccessResponse("Success", Result);
+                }
+                catch (Exception ex)
+                {
+                    Result = ResponseResult.ExceptionResponse("Internal Server Error", ex.Message.ToString());
+                }
+                finally
+                {
+                    db.Close();
+                }
+            }
+            return Result;
+        }
+        public static async Task<object> QueryAsync(string procedureName, object parameters)
+        {
+            dynamic Result = null;
+            using (IDbConnection db = ORMConnection.GetConnection())
+            {
+                try
+                {
+                    db.Open();
+                    Result = await db.QueryAsync<object>(procedureName, parameters, commandType: CommandType.StoredProcedure);
                     Result = ResponseResult.SuccessResponse("Success", Result);
                 }
                 catch (Exception ex)

@@ -8,8 +8,8 @@ namespace Reetu_School.SignUpHandler
 {
     public class SignupHandler : 
         IRequestHandler<SignUp, object>,
-        IRequestHandler<Login,object>
-        //IRequestHandler<GetSignUpDetail,object>
+        IRequestHandler<Login,object>,
+        IRequestHandler<GetSignUpDetail,object>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         public SignupHandler(IHttpContextAccessor httpContextAccessor)
@@ -63,10 +63,24 @@ namespace Reetu_School.SignUpHandler
             }
             return data;
         }
-        //public async Task<object> Handle(GetSignUpDetail request,CancellationToken cancellationToken)
-        //{
-
-        //}
+        public async Task<object> Handle(GetSignUpDetail request, CancellationToken cancellationToken)
+        {
+            var data = (dynamic)null;
+            try
+            {
+                var param = new
+                {
+                    Id = request.Id,
+                };
+                data = await DataLayer.QueryAsync("Proc_GetSignUpDetail", param);
+            }
+            catch(Exception ex)
+            {
+                Serilog.Log.Error(ex.Message, "GetSignUpDetail");
+                data = ResponseResult.ExceptionResponse("Internal Server Error", ex.Message);
+            }
+            return data;
+        }
     }
 }
 

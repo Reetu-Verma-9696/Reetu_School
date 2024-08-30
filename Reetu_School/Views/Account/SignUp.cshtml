@@ -17,9 +17,91 @@
         margin-top: 5%;
         margin-bottom: 1%;
     }
-</Style>
-<div class="conatiner">
-    <div class="conatiner-fluid">
+
+    .card {
+        background-color: #fff;
+        box-shadow: 0px 2px 2px 0px #ccc;
+        height: 300px;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10%;
+    }
+
+    .lbltext{
+        float:left;
+    }
+    .cus-res{
+        padding: 8px;
+    }
+    .listcus{
+        cursor: pointer;
+        padding: 10px;
+        margin-left:59px;
+    }
+   
+</Style> 
+<div class="row">
+    <div class="col-md-10"></div>
+    <div class="col-md-2 mt-3">
+        <a href="/Account/SignUPList"><span class="btn btn-success btn-sm listcus">Manage List</span></a>
+
+    </div>
+
+</div>
+<div class="card mt-3">
+    <div class="row cus-res">
+        <div class="col-md-4">
+            <label class="lbltext">Student Name<span style="color:red;">*</span></label>
+            <input type="text" class="form-control" id="txtName" placeholder="Enter Student Name.." />
+        </div>
+        <div class="col-md-4">
+            <label class="lbltext">Father Name<span style="color:red;">*</span></label>
+            <input type="text" class="form-control" id="txtFatherName" placeholder="Enter Father Name.." />
+        </div>
+        <div class="col-md-4">
+            <label class="lbltext">Mother Name<span style="color:red;">*</span></label>
+            <input type="text" class="form-control" id="txtMotherName" placeholder="Enter Mother Name.." />
+        </div>
+        <div class="col-md-4">
+            <label class="lbltext">Email<span style="color:red;">*</span></label>
+            <input type="email" class="form-control" id="txtEmail" placeholder="Enter Email.." />
+        </div>
+        <div class="col-md-4">
+            <label class="lbltext">Date of Birth<span style="color:red;">*</span></label>
+            <input type="date" class="form-control" id="txtDate" placeholder="Enter DOB.." />
+        </div>
+        <div class="col-md-4">
+            <label class="lbltext">Mobile Number<span style="color:red;">*</span></label>
+            <input type="number" class="form-control" id="txtMobileNumber" placeholder="Enter Mobile No.." />
+        </div>
+        <div class="col-md-4">
+            <label class="lbltext">Courses<span style="color:red;">*</span></label>
+            <Select class="form-control" id="DDLCourses">
+                <option>:: SELECT ::</option>
+                <option>HighSchool</option>
+                <option>InterMediate</option>
+                <option>Diploma</option>
+                <option>BTech</option>
+                <option>MTech</option>
+            </Select>
+        </div>
+        <div class="col-md-4">
+            <label class="lbltext">Password<span style="color:red;">*</span></label>
+            <input type="password" class="form-control" id="txtpassword" />
+        </div>
+        <div class="col-md-4">
+            <label class="lbltext">Confirm Password<span style="color:red;">*</span></label>
+            <input type="password" class="form-control" id="txtconfirmpassword" />
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <button class="btn btn-success mt-3" id="buttonsubmit" onclick="SignUp();">SUBMIT</button>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+
+@* <div class="conatiner-fluid">
         <div class="col-md-3"></div>
         <div class="col-md-6">
             <div class="card">
@@ -79,37 +161,32 @@
             <div class="col-md-3">
             </div>
         </div>
-    </div>
-</div>
-<div class="row clearfix" style="margin-top:5%;">
-        <div class="col-md-12">
+    </div>*@
+
+@*<div class="row" style="margin-top:5%;">
+    <div class="col-md-12">
         <table class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Student Name</th>
-                        <th>Father Name</th>
-                        <th>Mother Name</th>
-                        <th>Email</th>
-                        <th>DOB</th>
-                        <th>Mobile Number</th>
-                        <th>Courses</th>
-                        <th>Password</th>
-                        <th>Confirm Password</th>
-                    </tr>
-                </thead>
-                <tbody id="ordertable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Student Name</th>
+                    <th>Father Name</th>
+                    <th>Mother Name</th>
+                    <th>Email</th>
+                    <th>DOB</th>
+                    <th>Mobile Number</th>
+                    <th>Courses</th>
+                    <th>Password</th>
+                    <th>Confirm Password</th>
+                </tr>
+            </thead>
+            <tbody id="ordertable"></tbody>
+        </table>
+    </div>
+</div>*@
 
-                </tbody>
-            </table>
-
-        </div>
-</div>
-@section Scripts{
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="~/projectjs/signup.js"></script>
-    <script>
-        GetSignUpDetail();
-    </script>
-}
-
+   
+} 

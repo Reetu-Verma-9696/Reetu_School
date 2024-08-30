@@ -21,8 +21,8 @@ namespace Reetu_School.Models
         public string UserName { get; set; }
         public string Password { get; set; }
     }
-    //public class GetSignUpDetail : IRequest<object>
-    //{
-    //    public int Id { get; set; }
-    //}
+    public class GetSignUpDetail : IRequest<object>
+    {
+        public int Id { get; set; }
+    }
 }
