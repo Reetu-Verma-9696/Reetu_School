@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using Reetu_School.Models;
-using Serilog;
+
 
 namespace Reetu_School.Controllers
 {
@@ -46,5 +46,30 @@ namespace Reetu_School.Controllers
             var data = await _mediator.Send(Login);
             return Ok(data);
         }
+        [HttpDelete]
+        public async Task <IActionResult> DeleteCommand([FromBody] DeleteCommand DeleteCommand)
+        {
+            var data = await _mediator.Send(DeleteCommand);
+            return Ok(data);
+        }
+        [HttpPost]
+        public async Task<IActionResult> BindMasterGroupDetails(int Id)
+        {
+            var data = await _mediator.Send(new BindMasterGroupDetails { Id = Id });
+            return Ok(data);
+        }
+        [HttpPost]
+        public async Task<IActionResult> SaveGroupDetails([FromBody] SaveGroupDetails SaveGroupDetails)
+        {
+            var data = await _mediator.Send(SaveGroupDetails);
+            return Ok(data);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AssignDashboard()
+        {
+            var data = await _mediator.Send(new AssignDashboard());
+            return PartialView(data);
+        }
+
     }
 }

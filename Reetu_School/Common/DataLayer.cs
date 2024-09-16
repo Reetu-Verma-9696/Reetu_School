@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace Reetu_School.Common
 {
@@ -131,7 +132,14 @@ namespace Reetu_School.Common
             }
             return Result;
         }
-        
+        public static async Task<IEnumerable<T>> QueryAsync<T>(string storedProcedure, object parameters = null)
+        {
+            using (IDbConnection db = ORMConnection.GetConnection())
+            {
+                return await db.QueryAsync<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+        }
+
     }
 }
    
