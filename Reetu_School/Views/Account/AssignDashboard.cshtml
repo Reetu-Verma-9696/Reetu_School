@@ -1,0 +1,13 @@
+﻿@model IEnumerable<AssignDashboardDetails>
+
+<div class="block">
+        <div class="row">
+             @foreach (var item in Model)
+    {
+            <div class="col-md-4">
+                <input type="checkbox" value="@item.Id" name="Accounting" />
+                <label>@item.DisplayName</label>
+            </div>
+    }
+    </div>
+</div>

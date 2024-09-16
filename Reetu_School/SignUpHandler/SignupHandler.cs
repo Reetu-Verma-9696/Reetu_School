@@ -6,10 +6,14 @@ using static Reetu_School.Common.DataLayer;
 
 namespace Reetu_School.SignUpHandler
 {
-    public class SignupHandler : 
+    public class SignupHandler :
         IRequestHandler<SignUp, object>,
-        IRequestHandler<Login,object>,
-        IRequestHandler<GetSignUpDetail,object>
+        IRequestHandler<Login, object>,
+        IRequestHandler<GetSignUpDetail, object>,
+        IRequestHandler<DeleteCommand, object>,
+        IRequestHandler<BindMasterGroupDetails, Object>,
+        IRequestHandler<SaveGroupDetails, object>,
+        IRequestHandler<AssignDashboard, IEnumerable<AssignDashboardDetails>>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         public SignupHandler(IHttpContextAccessor httpContextAccessor)
@@ -23,6 +27,7 @@ namespace Reetu_School.SignUpHandler
             {
                 var param = new
                 {
+                    Id = request.Id,
                     StudentName = request.StudentName,
                     MotherName = request.MotherName,
                     FatherName = request.FatherName,
@@ -44,7 +49,7 @@ namespace Reetu_School.SignUpHandler
             }
             return data;
         }
-        public async Task<object>Handle(Login request, CancellationToken cancellationToken)
+        public async Task<object> Handle(Login request, CancellationToken cancellationToken)
         {
             var data = (dynamic)null;
             try
@@ -52,11 +57,11 @@ namespace Reetu_School.SignUpHandler
                 var param = new
                 {
                     UserName = request.UserName,
-                    Password=request.Password,
+                    Password = request.Password,
                 };
                 data = await DataLayer.QueryFirstOrDefaultAsyncWithDBResponse("Proc_Login", param);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Serilog.Log.Error(ex.Message, "Login");
                 data = ResponseResult.ExceptionResponse("Internal Server Error", ex.Message);
@@ -74,14 +79,79 @@ namespace Reetu_School.SignUpHandler
                 };
                 data = await DataLayer.QueryAsync("Proc_GetSignUpDetail", param);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Serilog.Log.Error(ex.Message, "GetSignUpDetail");
+                Serilog.Log.Error(ex, "GetSignUpDetail");
                 data = ResponseResult.ExceptionResponse("Internal Server Error", ex.Message);
             }
             return data;
         }
+        public async Task<object> Handle(DeleteCommand request, CancellationToken cancellationToken)
+        {
+            var data = (dynamic)null;
+            try
+            {
+                var param = new
+                {
+                    Id = request.Id,
+                };
+                data = await DataLayer.QueryAsync("Proc_DelSignUpDetail", param);
+            }
+            catch (Exception ex)
+            {
+                Serilog.Log.Error(ex, "DeleteCommand");
+                data = ResponseResult.ExceptionResponse("Internal Server Error", ex.Message);
+            }
+            return data;
+        }
+        public async Task<object> Handle(BindMasterGroupDetails request, CancellationToken cancellationToken)
+        {
+            var data = (dynamic)null;
+            try
+            {
+                var param = new
+                {
+                    Id = request.Id
+                };
+                data = await DataLayer.QueryAsync("BindBloodGroup", param);
+            }
+            catch (Exception ex)
+            {
+                Serilog.Log.Error(ex.Message, "BindMasterGroupDetails");
+                data = ResponseResult.ExceptionResponse("Internal Server Error", ex.Message);
+            }
+            return data;
+        }
+        public async Task<object> Handle(SaveGroupDetails request, CancellationToken cancellationToken)
+        {
+            var data = (dynamic)null;
+            try
+            {
+                var param = new
+                {
+                   // Id = request.Id,
+                    Name = request.Name,
+                    Email =request.Email,
+                    ContactNo = request.ContactNo,
+                    BloodGroup = request.BloodGroup
+                };
+                data = await DataLayer.QueryFirstOrDefaultAsyncWithDBResponse("SaveGroupDetails", param);
+            }
+            catch (Exception ex)
+            {
+                Serilog.Log.Error(ex.Message, "SaveGroupDetails");
+                data = ResponseResult.ExceptionResponse("Internal Server Error", ex.Message);
+            }
+            return data;
+
+        }
+        public async Task<IEnumerable<AssignDashboardDetails>> Handle(AssignDashboard request, CancellationToken cancellationToken)
+        {
+            var response = await DataLayer.QueryAsync<AssignDashboardDetails>("Proc_AssignDashboard", null);
+            return response;
+            
+        }
     }
 }
 
-    
+

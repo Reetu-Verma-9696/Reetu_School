@@ -1,10 +1,12 @@
 ﻿using MediatR;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Reetu_School.Models
 {
     public class SignUp:IRequest<object>
     {
-       
+        public int Id { get; set; }
         public string StudentName { get; set; }
         public string FatherName { get; set; }
         public string MotherName { get; set; }
@@ -25,4 +27,31 @@ namespace Reetu_School.Models
     {
         public int Id { get; set; }
     }
+    public class DeleteCommand : IRequest<object>
+    {
+        public int Id { get; set; }
+    }
+    public class BindMasterGroupDetails : IRequest<object>
+    {
+        public int Id { get; set; }
+    }
+    public class SaveGroupDetails : IRequest<object>
+    {
+        //public int Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string ContactNo { get; set; }
+        public string BloodGroup { get; set; }
+    }
+    public class AssignDashboard : IRequest<IEnumerable<AssignDashboardDetails>>
+    {
+        
+    }
+    public class AssignDashboardDetails
+    {
+        public int Id { get; set; }
+        public string DisplayName { get; set; }
+    }
+
+
 }

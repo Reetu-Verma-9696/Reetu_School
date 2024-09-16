@@ -1,7 +1,325 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "About";
 }
 
+<link href="~/css/bootstrap-toggle.min.css" rel="stylesheet" />
+<style>
+    .card {
+        width: 100%;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        margin-bottom: 50% !important;
+        box-shadow: 0px 0px 10px 2px #ccc;
+    }
 
+    .img-sec {
+        padding: 14px;
+    }
+
+    .img-sec1 {
+        padding: 14px;
+    }
+
+    .img-sec3 {
+        filter: blur(4px);
+        -webkit-filter: blur(8px);
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 200px;
+    }
+    .container1{
+        padding: 12px;
+        text-align: center;
+    }
+</style>
+<div class="card">
+    <div class="row">
+        <div class="col-md-6 img-sec">
+            <img src="~/images/blood8.jpg" width="100%" />
+        </div>
+        <div class="col-md-6">
+            <h4>ABOUT <span style="color:red;">LOREM SPAM</span></h4>
+            <p style="text-align:justify;">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+        </div>
+
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-6">
+            <h4>ABOUT <span style="color:red;">LOREM SPAM</span></h4>
+            <p style="text-align:justify;">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+        </div>
+        <div class="col-md-6 img-sec1">
+            <img src="~/images/blood8.jpg" width="100%" />
+        </div>
+    </div>
+    <div class="row mt-4" style="padding:8px;">
+        <div class="col-md-3">
+            <label> Name</label>
+            <input type="text" class="form-control" id="txtName" />
+        </div>
+        <div class="col-md-3">
+            <label> Email</label>
+            <input type="text" class="form-control" id="txtEmail" />
+        </div>
+        <div class="col-md-3">
+            <label> Contact No.</label>
+            <input type="text" class="form-control" id="txtContactNo" />
+        </div>
+        <div class="col-md-3">
+            <label>Blood Group</label>
+            <select class="form-control" id="DDLBloodGroup">
+                <option value="0">--SELECT--</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-success btn btn-sm" onclick="SaveGroupDetails();" style="margin-top:5px;">Register</button>
+        </div>
+        <div class="col-md-3">
+            <button type="button" onclick="AssignDashboard();" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal" style="margin-top: 6px;">Add</button>
+
+            <!-- The Modal -->
+            <div class="modal" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Assign Dashboard</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <div class=" block" id="RowDetails">
+                            </div>
+
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-bs-dismiss="modal">Save</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="~/images/screenshot (48).png" style="width:100%">
+                        <div class="container1">
+                        <input type="checkbox" checked data-toggle="toggle" style="height:35px !important;">
+                        </div>
+                   </div>
+            </div>
+        <div class="col-md-3">
+            <div class="card">
+                <img src="~/images/screenshot (48).png" style="width:100%">
+                <div class="container1">
+                    <input type="checkbox" checked data-toggle="toggle" style="height:35px !important;">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <img src="~/images/screenshot (48).png" style="width:100%">
+                <div class="container1">
+                    <input type="checkbox" checked data-toggle="toggle" style="height:35px !important;">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <img src="~/images/screenshot (48).png" style="width:100%">
+                <div class="container1">
+                    <input type="checkbox" checked data-toggle="toggle" style="height:35px !important;">
+                </div>
+            </div>
+        </div>
+        </div>
+        <hr />
+         <div class="row">
+             <div class="col-md-2" style="padding:24px;">
+            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#EmpModal">Add</button>
+            <div class="modal" id="EmpModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Employee Registration</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class=" block">
+                                <div class="row">
+                                    <div class=col-md-6>
+                                        <input type="text" class="form-control" id="txtFEmpName" placeholder="Enter First Name..."/>
+                                    </div>
+                                     <div class=col-md-6>
+                                        <input type="text" class="form-control" id="txtSEmpName" placeholder="Enter Last Name..."/>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                   <div class=col-md-6>
+                                        <input type="Email" class="form-control" id="txtEmail" placeholder="Enter Email..."/>
+                                    </div>
+                                    <div class=col-md-6>
+                                        <input type="number" class="form-control" id="txtmobnumber" placeholder="Enter Mobile No..." />
+                                    </div>
+                                </div>
+                                 <div class="row mt-4">
+                                   <div class=col-md-6>
+                                        <input type="number" class="form-control" id="txtadhar" placeholder="Enter Adhar.."/>
+                                    </div>
+                                    <div class=col-md-6>
+                                        <input type="date" class="form-control" id="txtdate" placeholder="Enter DOB..." />
+                                    </div>
+                                </div>
+                                 <div class="row mt-4">
+                                   <div class=col-md-6>
+                                        <input type="text" class="form-control" id="txtstate" placeholder="Enter State..."/>
+                                    </div>
+                                    <div class=col-md-6>
+                                        <input type="text" class="form-control" id="txtcity" placeholder="Enter City..." />
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class=col-md-6>
+                                        <input type="number" class="form-control" id="txtpin" placeholder="Enter PinCode.." />
+                                    </div>
+                                    <div class=col-md-6>
+                                       <select class="form-control">
+                                           <option>--SELECT--</option>
+                                           
+                                       </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+           
+        </div>
+</div>
+@section Scripts{
+    <script src="~/js/bootstrap-toggle.min.js"></script>
+    <script>
+        $(function () {
+            BindMasterGroupDetails();
+        });
+        var Id = '0';
+        function BindMasterGroupDetails() {
+            $.post('/Account/BindMasterGroupDetails').done(function (data) {
+                if (data.responseCode === 200) {
+                    data = data.responseResult;
+                    $("#DDLBloodGroup").empty().append('<option value="0">--Select--</option>');
+                    for (var i = 0; i < data.length; i++) {
+                        $("#DDLBloodGroup").append('<option data-Id="' + data[i].Id + '" value="' + data[i].id + '">' + data[i].BloodGroup + '</option>');
+
+                    }
+
+                }
+                else {
+                    alert(data.responseMessage);
+                }
+            }).fail(function (xhr) {
+                console.log(xhr);
+            });
+        }
+
+
+        function SaveGroupDetails() {
+            var Name = $('#txtName').val();
+            var Email = $('#txtEmail').val();
+            var ContactNo = $('#txtContactNo').val();
+            var BloodGroup = $('#DDLBloodGroup').val();
+
+            if (Name === '') {
+                $('#txtName').focus();
+                return;
+            }
+            if (Email === '') {
+                $('#txtEmail').focus();
+                return;
+            }
+            if (ContactNo === '') {
+                $('#txtContactNo').focus();
+                return;
+            }
+            if (BloodGroup === '') {
+                $('#DDLBloodGroup').focus();
+                return;
+            }
+
+            var obj = new Object();
+            obj.Id = Id;
+            obj.Name = Name;
+            obj.Email = Email;
+            obj.ContactNo = ContactNo;
+            obj.BloodGroup = BloodGroup;
+            console.log(obj);
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to submit detail!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: '/Account/SaveGroupDetails',
+                        type: 'POST',
+                        data: JSON.stringify(obj),
+                        contentType: 'application/json; charset=UTF-8',
+                        success: function (data) {
+                            if (data.responseCode === 200) {
+                                Swal.fire(
+                                    'Success!',
+                                    data.responseMessage,
+                                    'success').then(function () {
+
+                                    });
+                                //)
+                            }
+                            else {
+                                console.log(data);
+                                alert(data.responseMessage);
+                            }
+                        },
+                        error: function (xhr) {
+                            console.log(xhr);
+                            Swal.fire('Exception!', 'INTERNAL SERVER ERROR.', 'error');
+                        }
+                    });
+                }
+            })
+        }
+        function AssignDashboard() {
+            $.post('/Account/AssignDashboard')
+                .done((res) => {
+                    $('#RowDetails').empty().append(res);
+                    $('#myModal').modal('show');
+                })
+                .fail(function (xhr) {
+                    console.log(xhr);
+                });
+        }
+        function EmpRegistration(){
+            $('#EmpModal').modal('show');
+        }
+    </script>
+}
 
