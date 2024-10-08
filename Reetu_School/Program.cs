@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Access configuration using builder.Configuration
 MyConnection.DefaultConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddMediatR(typeof(Program).Assembly);
 builder.Services.AddMemoryCache();

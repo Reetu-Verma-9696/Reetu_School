@@ -70,6 +70,13 @@ namespace Reetu_School.Controllers
             var data = await _mediator.Send(new AssignDashboard());
             return PartialView(data);
         }
+        [HttpPost]
+        public async Task<IActionResult> SaveEmpData([FromBody] SaveEmpData SaveEmpData)
+        {
+            var data = await _mediator.Send(SaveEmpData);
+            return Ok(data);
+        }
+
 
     }
 }
