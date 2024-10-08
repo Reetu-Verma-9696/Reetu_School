@@ -179,7 +179,8 @@ $(document).ready(function () {
 
 
 function fetchSignUpDetails(Id) {
-    //Id = Id;
+    debugger
+    Id = Id;
     $.ajax({
         url: '/Account/GetSignUpDetail?Id=' + Id,
         type: 'GET',

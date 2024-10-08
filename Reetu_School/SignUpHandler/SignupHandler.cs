@@ -13,7 +13,8 @@ namespace Reetu_School.SignUpHandler
         IRequestHandler<DeleteCommand, object>,
         IRequestHandler<BindMasterGroupDetails, Object>,
         IRequestHandler<SaveGroupDetails, object>,
-        IRequestHandler<AssignDashboard, IEnumerable<AssignDashboardDetails>>
+        IRequestHandler<AssignDashboard, IEnumerable<AssignDashboardDetails>>,
+        IRequestHandler<SaveEmpData, object>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         public SignupHandler(IHttpContextAccessor httpContextAccessor)
@@ -151,6 +152,36 @@ namespace Reetu_School.SignUpHandler
             return response;
             
         }
+        public async Task<object> Handle(SaveEmpData request, CancellationToken cancellationToken)
+        {
+            var data = (dynamic)null;
+            try
+            {
+                var param = new
+                {
+                    request.Id,
+                    FName = request.FName,
+                    LName = request.LName,
+                    Email = request.Email,
+                    Mobile = request.Mobile,
+                    Adhar = request.Adhar,
+                    Dob = request.Dob,
+                    State = request.State,
+                    City = request.City,
+                    PinCode = request.PinCode,
+                    Qualification = request.Qualification,
+                    Gender = request.Gender,
+                };
+                data = await DataLayer.QueryFirstOrDefaultAsyncWithDBResponse("SaveEmpData", param);
+            }
+            catch (Exception ex)
+            {
+                Serilog.Log.Error(ex.Message, "SaveEmpData");
+                data = ResponseResult.ExceptionResponse("Internal Server Error", ex.Message);
+            }
+            return data;
+        }
+
     }
 }
 

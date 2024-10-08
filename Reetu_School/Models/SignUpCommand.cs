@@ -52,6 +52,20 @@ namespace Reetu_School.Models
         public int Id { get; set; }
         public string DisplayName { get; set; }
     }
-
+    public class SaveEmpData : IRequest<object>
+    {
+        public int Id { get; set; }
+        public string FName { get; set; }
+        public string LName { get; set; }
+        public string Email { get; set; }
+        public int Mobile { get; set; }
+        public int Adhar { get; set; }
+        public string Dob { get; set; }
+        public string State { get; set; }
+        public string City { get; set; }
+        public string PinCode { get; set; }
+        public string Qualification { get; set; }
+        public string Gender { get; set; }
+    }
 
 }

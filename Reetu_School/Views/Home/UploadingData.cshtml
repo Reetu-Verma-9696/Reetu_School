@@ -1,0 +1,102 @@
+﻿@{
+    ViewData["Title"] = "UploadingData";
+}
+<link href="~/css/jquery.datatables.min.css" rel="stylesheet" />
+<style>
+    .card {
+        box-shadow: 0px 0px 10px 2px #ccc;
+        padding: 3%;
+        border-top: 3px solid orange;
+        max-width: 100%;
+    }
+
+    h5 {
+        border-bottom: 1px solid #ccc;
+        max-width: 100%;
+    }
+
+    .card1 {
+        box-shadow: 0px 0px 10px 2px #ccc;
+        padding: 5%;
+        border-top: 3px solid forestgreen;
+        max-width: 100%;
+        margin-top: 15px;
+    }
+    
+</style>
+<h5></h5>
+<div class="card">
+    <div class="row">
+        <div class="col-md-2">
+            <label>Name<span style="color:red;">*</span></label>
+            <input type="text" class="form-control" id="textName" />
+        </div>
+        <div class="col-md-2">
+            <label>About<span style="color:red;">*</span></label>
+            <input type="text" class="form-control" id="textAbout" />
+        </div>
+        <div class="col-md-2">
+            <label>Marks<span style="color:red;">*</span></label>
+            <input type="number" class="form-control" id="textMarks" />
+        </div>
+        <div class="col-md-2">
+            <label>Subject<span style="color:red;">*</span></label>
+            <input type="text" class="form-control" id="textSubject" />
+        </div>
+        <div class="col-md-2">
+            <label>Description<span style="color:red;">*</span></label>
+            <input type="text" class="form-control" id="textDescription" />
+        </div>
+        <div class="col-md-2">
+            <label>Document<span style="color:red;">*</span></label>
+            <input type="file" class="form-control" id="txt-file" />
+        </div>
+
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-10">
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-warning btn-btn-lg" onclick="btnSubmit();">Submit</button>
+        </div>
+    </div>
+</div>
+<div class="card1">
+    <div class="row">
+        <div>
+            <table id="ordertable" class="table table-striped table-bordered">
+                <thead class="bg-warning">
+                    <tr>
+                        <th>Sr No</th>
+                        <th>Name</th>
+                        <th>About</th>
+                        <th>Marks</th>
+                        <th>Subject</th>
+                        <th>Description</th>
+                        <th>Document</th>
+                        <th>Actions</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+
+        </div>
+
+    </div>
+
+</div>
+@section Scripts{
+    <script src="~/projectjs/uploadingdata.js"></script>
+    <script src="~/js/jquery.datatables.min.js"></script>
+   <script>
+       $(document).ready(function(){
+            GetUploadingData();
+       });
+       
+    </script>
+   
+}
+
+
