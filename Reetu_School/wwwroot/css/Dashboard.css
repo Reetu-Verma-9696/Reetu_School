@@ -1,0 +1,193 @@
+﻿
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #EDEFF0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.side-menu {
+    width: 19vw;
+    background-color: #2c3e50;
+    height: 100vh;
+}
+
+.brand-name {
+    color: white;
+    text-align: center;
+}
+
+.side-menu ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+    .side-menu ul li {
+        padding: 15px 10px;
+        color: white;
+        cursor: pointer;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+        .side-menu ul li:hover {
+            background-color: #34495e;
+        }
+
+        .side-menu ul li i {
+            margin-right: 10px;
+        }
+
+.submenu {
+    display: none;
+    background-color: #34495e;
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+    .submenu li {
+        padding: 10px 0;
+        color: white;
+    }
+
+        .submenu li:hover {
+            background-color: #1abc9c;
+        }
+
+.container {
+    position: absolute;
+    right: 0;
+    height: 100vh;
+    width: 80vw;
+}
+
+    .container .header {
+        position: fixed;
+        top: 0;
+        width: 80vw;
+        height: 10vh;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        z-index: 999;
+    }
+
+        .container .header .nav {
+            width: 90%;
+            display: flex;
+            align-items: center;
+        }
+
+            .container .header .nav .search {
+                flex: 3;
+                display: flex;
+                justify-content: center;
+            }
+
+                .container .header .nav .search input[type=text] {
+                    border: none;
+                    background: #f1f1f1;
+                    padding: 10px;
+                    width: 50%;
+                }
+
+                .container .header .nav .search button {
+                    width: 40px;
+                    height: 40px;
+                    border: none;
+                    justify-content: center;
+                }
+
+            .container .header .nav .user {
+                flex: 1;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+.addbtn {
+    background: #2c3e50;
+    color: white !important;
+    padding: 5px 10px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* .addbtn:hover {
+            color: #34495e;
+            background-color: #34495e;
+            padding: 3px 8px;
+            border: 2px solid #34495e;
+        }*/
+.container .header .nav .user img {
+    width: 40px;
+    height: 40px;
+}
+
+.container .header .nav .user .img-case {
+    position: relative;
+    width: 50px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+    .container .header .nav .user .img-case img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        cursor: pointer;
+    }
+
+.container .content {
+    position: relative;
+    margin-top: 10vh;
+    min-height: 90vh;
+}
+
+    .container .content .cards {
+        padding: 20px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+        .container .content .cards .card {
+            width: 250px;
+            height: 150px;
+            background: white;
+            margin: 20px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+        }
+
+h3 {
+    color: #999;
+}
+
+.container .content .content2 {
+    min-height: 60vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+    .container .content .content2 .recent_payments {
+        min-height: 50vh;
+        flex: 5;
+        background: red;
+        margin: 0 25px 25px 25px;
+    }
+
+    .container .content .content2 .new-students {
+    }

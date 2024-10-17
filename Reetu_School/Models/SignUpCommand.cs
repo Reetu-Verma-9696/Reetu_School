@@ -67,5 +67,19 @@ namespace Reetu_School.Models
         public string Qualification { get; set; }
         public string Gender { get; set; }
     }
+    public class RegistrationCommand : IRequest<object>
+    {
+        public int Id { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string MobileNo { get; set; }
+        public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
+    }
+    public class DeleteSignUpRecord : IRequest<object>
+    {
+        
+        public int Id { get; set; }
+    }
 
 }

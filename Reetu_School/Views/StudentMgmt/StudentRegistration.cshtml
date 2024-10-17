@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewData["Title"] = "StudentRegistration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="block bt">
+        <h4><i class="fa fa-edit"></i>Student Registration</h4>
+        <div class="row" style="padding:12px;">
+            <div class="col-md-4">
+                <label>Student First Name<span style="color:red;">*</span></label>
+                <input type="text" class="form-control" id="txtFirstName" />
+            </div>
+            <div class="col-md-4">
+                <label>Student Middle Name<span style="color:red;">*</span></label>
+                <input type="text" class="form-control" id="txtMiddleName" />
+            </div>
+            <div class="col-md-4">
+                <label>Student Last Name<span style="color:red;">*</span></label>
+                <input type="text" class="form-control" id="txtLastName" />
+            </div>
+            <div class="row" style="margin-top:20px;">
+                <div class="col-md-4">
+                    <label>Father First Name<span style="color:red;">*</span></label>
+                    <input type="text" class="form-control" id="txtFatherFirstName" />
+                </div>
+                <div class="col-md-4">
+                    <label>Father Middle Name<span style="color:red;">*</span></label>
+                    <input type="text" class="form-control" id="txtFatherMiddleName" />
+                </div>
+                <div class="col-md-4">
+                    <label>Father Last Name<span style="color:red;">*</span></label>
+                    <input type="text" class="form-control" id="txtFatherLastName" />
+                </div>
+            </div>
+            <div class="row" style="margin-top:20px;">
+                <div class="col-md-4">
+                    <label>Gender<span style="color:red;">*</span></label>
+                    <select class="form-control" id="ddlGender">
+                        <option>SELECT</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+
+                </div>
+                <div class="col-md-4">
+                    <label>Date of Birth<span style="color:red;">*</span></label>
+                    <input type="date" class="form-control" id="txtDate" />
+                </div>
+                <div class="col-md-4">
+                    <label>Nationality<span style="color:red;">*</span></label>
+                    <select class="form-control" id="ddlNationality">
+                        <option>SELECT</option>
+                        <option value="Indian">Indian</option>
+                    </select>
+                </div>
+                <div class="row" style="margin-top:20px;">
+                    <div class="col-md-4">
+                        <label>Place Of Birth<span style="color:red;">*</span></label>
+                        <input type="text" class="form-control" id="txtplaceofbirth" />
+                    </div>
+                    <div class="col-md-4">
+                        <label>PAN<span style="color:red;">*</span></label>
+                        <input type="text" class="form-control" id="txtPAN" />
+                    </div>
+                    <div class="col-md-4">
+                        <label>Category<span style="color:red;">*</span></label>
+                        <select class="form-control" id="ddlcategory">
+                            <option>SELECT</option>
+                            <option value="General">General</option>
+                            <option value="OBC">OBC</option>
+                            <option value="SC">SC</option>
+                            <option value="ST">ST</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:20px;">
+                    <div class="col-md-4">
+                        <label>Adhar<span style="color:red;">*</span></label>
+                        <input type="text" class="form-control" id="txtAdhar" />
+                    </div>
+                    <div class="col-md-4">
+                        <label>Mobile<span style="color:red;">*</span></label>
+                        <input type="number" class="form-control" id="txtnumber" />
+                    </div>
+                    <div class="col-md-4">
+                        <label>Email<span style="color:red;">*</span></label>
+                        <input type="email" class="form-control" id="txtemail" />
+                    </div>
+                    <div class="row" style="margin-top:20px;">
+                        <div class="col-md-4">
+                            <label>Address<span style="color:red;">*</span></label>
+                            <input type="email" class="form-control" id="txtaddress" />
+                        </div>
+                        <div class="col-md-4">
+                            <label>Permanent Address<span style="color:red;">*</span></label>
+                            <input type="email" class="form-control" id="txtpaddress" />
+                        </div>
+                        <div class="row" style="margin-top:20px;">
+                            <div class="col-md-2" style="float:right;">
+                                <button class="btn btn-success btn btn-sm" onclick="SaveStudentRegistration();">Save Detail</button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@section Scripts{
+<script src="~/projectjs/studentregistration.js"></script>
+}

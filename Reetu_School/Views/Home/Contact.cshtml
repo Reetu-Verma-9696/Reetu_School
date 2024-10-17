@@ -4,7 +4,7 @@
 }
 <style>
     .cus-img {
-        background-image: url('/images/contact-us.jpg');
+        background-image: url('/images/blood8.jpg');
         background-size:cover;
         background-repeat:no-repeat;
         width:100%;
@@ -33,15 +33,26 @@
         margin-top:75px;
         font-size:35px;
     }
+    h4::after{
+
+    }
     .card{
         height:400px;
         width:800px;
-        box-shadow:0px 0px 10px 2px #ccc;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
         margin-bottom:40%;
-        width: 90%;
-        margin-left: 5%;
-        margin-right: 5%;
+        width: 100%;
     }
+
+    .custom-button{
+        width: 14%;
+        float: right;
+        font-size: 15px;
+        margin-top: 5px;
+    }
+   .enquiry{
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+   }
 </style>
 <div class="container">
    <div class="row">
@@ -51,9 +62,28 @@
             <h4>Get In Touch</h4>
        </div>
         <div class="card">
-
+            <div class="row">
+                <div class=col-md-6>
+                    <img src="~/Images/blood8.jpg" height="100%" width="100%"/>
+                </div>
+                <div class="col-md-6 enquiry">
+                   <form>
+                        <label>Name<span style="color:red;">*</span></label>
+                       <input type="text" class="form-control" id="txtconName" />
+                        <label>Email<span style="color:red;">*</span></label>
+                       <input type="email" class="form-control" id="txtconEmail" />
+                        <label>Mobile<span style="color:red;">*</span></label>
+                       <input type="number" class="form-control" id="txtconMobile" />
+                        <label>Message<span style="color:red;">*</span></label>
+                        <textarea class="form-control" id="txtconMessage" rows="4"></textarea>
+                       <button class="btn btn-info btn-lg custom-button" onclick="sendEnquiry();">Send</button>
+                   </form>
+                    </div>
+            </div>
         </div>
    </div>
-  
 </div>
+@section Scripts{
+    <script src="~/projectjs/contact.js"></script>
+}
 

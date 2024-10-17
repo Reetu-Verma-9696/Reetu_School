@@ -1,4 +1,4 @@
-﻿var _Id='0'
+﻿ var _Id = '0';
 function btnSubmit() {
     var Name = $('#textName').val();
     var About = $('#textAbout').val();
@@ -27,10 +27,7 @@ function btnSubmit() {
         alert('#textDescription').focus();
         return;
     }
-    if (ImageFile === '') {
-        alert('#txt-file').focus();
-        return;
-    }
+  
     var obj = new Object();
     obj.Id = _Id;
     obj.Name = Name;
@@ -76,9 +73,9 @@ function btnSubmit() {
         }
     });
 }
-function GetUploadingData() {
+function GetUploadingData(Id) {
     $.ajax({
-        url: '/Home/GetUploadingData?Id=0',
+        url: '/Home/GetUploadingData?Id=' + Id,
         type: 'GET',
         dataType: 'json',
         contentType: 'application/json; charset=UTF-8',
@@ -107,7 +104,7 @@ function GetUploadingData() {
                         {
                             data: "ImageFile",
                             render: function (data, type, row) {
-                                return `<a href="${data}" target="_blank">View Document</a>`;
+                                return `<a href="${data}" target="_blank"><i class="fa fa-download"></i></a>`;
                             }
                         },
                         {
@@ -118,13 +115,15 @@ function GetUploadingData() {
                             render: function (data, type, row) {
                                 var icon = row.IsActive === false ? "fa-unlock" : "fa-lock";
                                 return `
-                                   <a class="btn btn-success btn-sm" href="/Home/UploadingData?Id=${row.Id}" onclick="EditUploadingData();">Edit</a>
-                                   <a class="btn btn-danger btn-sm" href="/Account/Delete?Id=${row.Id}">Delete</a> `;
-                               
+                                   <a onclick="EditUploadingData(${row.Id})" class="btn btn-success btn-sm">Edit</a>
+                                   <a onclick="DeleteUploadingData(${row.Id})" class="btn btn-danger btn-sm">Delete</a>
+                                   <a class="btn btn-info btn-sm" onclick="opensendmail();" >Email</a>
+                                   `;
+
                             }
                         }
                     ],
-                
+
                 });
             } else {
                 console.error("Unexpected response code:", data.responseCode);
@@ -137,20 +136,26 @@ function GetUploadingData() {
 }
 
 function EditUploadingData(Id) {
-    Id = Id;
+    _Id = Id;
     $.ajax({
         url: '/Home/GetUploadingData?Id=' + Id,
         type: 'GET',
         dataType: 'json',
         contentType: 'application/json; charset=UTF-8',
         success: function (data) {
+            console.log(data);
             if (data.responseCode === 200) {
                 data = data.responseResult;
-                $('#textName').val(data[0].Name);
-                $('#textAbout').val(data[0].About);
-                $('#textMarks').val(data[0].Marks);
-                $('#textSubject').val(data[0].Subject);
-                $('#textDescription').val(data[0].Description);
+                if (data && data.length > 0) {
+                    $('#textName').val(data[0].Name);
+                    $('#textAbout').val(data[0].About);
+                    $('#textMarks').val(data[0].Marks);
+                    $('#textSubject').val(data[0].Subject);
+                    $('#textDescription').val(data[0].Description);
+                }
+                else {
+                    alert('hey');
+                }
             }
         },
         error: function (xhr) {
@@ -159,8 +164,46 @@ function EditUploadingData(Id) {
     });
 }
 
-function UpdateStatusGroup(Id) {
-   
+function DeleteUploadingData(Id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You want to submit detail!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var obj = { Id: Id };
+            $.ajax({
+                url: '/Home/DeleteUploadingData',
+                type: 'Delete',
+                data: JSON.stringify(obj),
+                contentType: 'application/json; charset=UTF-8',
+                success: function (data) {
+                    if (data.responseCode === 200) {
+                        swal.fire(
+                            'Success!',
+                            data.responseMessage,
+                            'success').then(function () {
+                                location.reload();
+                            });
+                    }
+                    else {
+                        console.log(data);
+                        alert(data.responseMessage);
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                    Swal.fire('Exception!', 'INTERNAL SERVER ERROR.', 'error');
+                }
+            });
+        }
+    });
 }
-
+function opensendmail() {
+    $('#sendmail').modal('show');
+}
 

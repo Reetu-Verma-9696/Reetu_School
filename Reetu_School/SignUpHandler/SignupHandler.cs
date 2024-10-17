@@ -2,6 +2,7 @@
 using Reetu_School.Common;
 using Reetu_School.Models;
 using System.Dynamic;
+using System.Runtime.InteropServices;
 using static Reetu_School.Common.DataLayer;
 
 namespace Reetu_School.SignUpHandler
@@ -14,7 +15,9 @@ namespace Reetu_School.SignUpHandler
         IRequestHandler<BindMasterGroupDetails, Object>,
         IRequestHandler<SaveGroupDetails, object>,
         IRequestHandler<AssignDashboard, IEnumerable<AssignDashboardDetails>>,
-        IRequestHandler<SaveEmpData, object>
+        IRequestHandler<SaveEmpData, object>,
+        IRequestHandler<RegistrationCommand, object>,
+        IRequestHandler<DeleteSignUpRecord, object>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         public SignupHandler(IHttpContextAccessor httpContextAccessor)
@@ -178,6 +181,47 @@ namespace Reetu_School.SignUpHandler
             {
                 Serilog.Log.Error(ex.Message, "SaveEmpData");
                 data = ResponseResult.ExceptionResponse("Internal Server Error", ex.Message);
+            }
+            return data;
+        }
+        public async Task<object> Handle(RegistrationCommand request, CancellationToken cancellationToken)
+        {
+            var data = (dynamic)null;
+            try
+            {
+                var param = new
+                {
+                    Id = request.Id,
+                    UserName = request.UserName,
+                    Email = request.Email,
+                    MobileNo = request.MobileNo,
+                    Password = request.Password,
+                    ConfirmPassword = request.ConfirmPassword,
+                };
+                data = await DataLayer.QueryFirstOrDefaultAsyncWithDBResponse("Proc_RegistrationCommand", param);
+            }
+            catch (Exception ex)
+            {
+                Serilog.Log.Error(ex.Message, "RegistrationCommand");
+                data = ResponseResult.ExceptionResponse("Internal Server Error", ex.Message);
+            }
+            return data;
+        }
+        public async Task<object>Handle(DeleteSignUpRecord request, CancellationToken cancellationToken)
+        {
+            var data = (dynamic)null;
+            try
+            {
+                var param = new
+                {
+                    Id = request.Id
+                };
+                data = await DataLayer.QueryFirstOrDefault("Proc_DeleteSignUpRecord", param);
+            }
+            catch(Exception ex)
+            {
+                Serilog.Log.Error("DeleteSignUpRecord", ex.Message);
+                data = ResponseResult.ExceptionResponse("Internal Server Error",ex.Message);
             }
             return data;
         }
