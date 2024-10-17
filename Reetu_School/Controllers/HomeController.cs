@@ -54,5 +54,21 @@ namespace Reetu_School.Controllers
             var data = await _mediator.Send(new GetUploadingData { Id = Id});
             return Ok(data);
         }
+        public IActionResult Dashboard()
+        {
+            return View();
+        }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteUploadingData([FromBody] DeleteUploadingData req)
+        {
+            var data = await _mediator.Send(req);
+            return Ok(data);
+        }
+        [HttpPost]
+        public async Task<IActionResult> SendEnquiry([FromBody] SendEnquiry obj)
+        {
+            var data = await _mediator.Send(obj);
+            return Ok(data);
+        }
     }
 }

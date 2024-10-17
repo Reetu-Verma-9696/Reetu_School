@@ -9,9 +9,11 @@
         border-top: 3px solid orange;
         max-width: 100%;
     }
-
+    .modal-body{
+        margin-left: 37px;
+    }
     h5 {
-        border-bottom: 1px solid #ccc;
+       
         max-width: 100%;
     }
 
@@ -57,7 +59,7 @@
         <div class="col-md-10">
         </div>
         <div class="col-md-2">
-            <button class="btn btn-warning btn-btn-lg" onclick="btnSubmit();">Submit</button>
+            <button class="btn btn-info btn-btn-lg" onclick="btnSubmit();">Submit</button>
         </div>
     </div>
 </div>
@@ -74,7 +76,7 @@
                         <th>Subject</th>
                         <th>Description</th>
                         <th>Document</th>
-                        <th>Actions</th> 
+                        <th width="20%">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -86,6 +88,33 @@
 
     </div>
 
+</div>
+<div class="modal" id="sendmail">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">SEND MAILS</h6>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="col-md-11">
+                        <label>Subject<span style="color:red;">*</span></label>
+                        <input type="text" class="form-control" id="txtSubject" />
+                    </div>
+                    <div class="col-md-11" style="margin-top:15px;">
+                        <label>Attachment File<span style="color:red;">*</span></label>
+                        <input type="file" class="form-control" id="txtEmailDoc" multiple />
+
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Send</button>
+                <button type="button" class="btn btn-info" data-bs-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
 </div>
 @section Scripts{
     <script src="~/projectjs/uploadingdata.js"></script>

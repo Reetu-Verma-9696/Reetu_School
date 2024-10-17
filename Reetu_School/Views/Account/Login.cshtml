@@ -3,14 +3,18 @@
     ViewData["Title"] = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/fontawesome.min.css" integrity="sha512-B46MVOJpI6RBsdcU307elYeStF2JKT87SsHZfRSkjVi4/iZ3912zXi45X5/CBr/GbCyLx6M1GQtTKYRd52Jxgw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
     .card{
-        height: 250px;
-        width: 250px;
-        box-shadow: 0px 0px 10px 2px #ccc;
+        height: 281px !important;
+        width: 324px !important;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
         margin: auto;
         margin-bottom: 20%;
         margin-top: 5%;
+        padding: 16px;
+        background-color: #f9f5ef;
     }
     h4{
         text-align:center;
@@ -20,24 +24,45 @@
         color:tomato;
     }
     .button{
-        margin-top:12px;
-        margin-left:55px;
+        margin-top: 12px;
+        margin-left: 66px;
+        width: 133px;
     }
-    .form-group{
-        padding:7px;
+
+        .button:hover {
+            background-color: tomato;
+        }
+    .custom-class{
+        margin-left: 72px;
     }
 </style>
 <div class="card">
-    <h4>Login</h4>
-    <div class="form-group">
-        <label>UserId</label>
-        <input type="text" class="form-control" id="username" />
-        <label>Password</label>
-        <input type="password" class="form-control" id="password" />
+    <h4>Sign In</h4>
+    <div class="form-group" style="position:relative;">
+        <div class="input-group mb-1">
+            <input type="text" id="username" class="form-control" placeholder="Email" required="">
+            <div class="input-group-append">
+                <span class="input-group-text bg-white cus-append">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                </span>
+            </div>
+        </div>
+        <div class="input-group mb-1" style="margin-top:18px;">
+            <input type="password" id="password" class="form-control" placeholder="Password" required="">
+            <div class="input-group-append">
+                <span class="input-group-text bg-white cus-append">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                </span>
+            </div>
+        </div>
         <div class="col-md-4"></div>
         <div class="col-md-3">
-            <button class="btn btn-lg btn-success button" onclick="SaveData();">Submit</button>
-
+            <button class="btn btn-sm btn-danger button" onclick="SaveData();">Sign In</button>  
+        </div>
+        <div class="col-md-8 custom-class">
+            <span style="margin-left:31px;">-OR-</span><br />
+            <a href="/Account/Registration" style="margin-left:-8px;text-decoration:none;color:black;">Create a new account</a><br />
+            <a href="/Account/ForgetPassword" style="margin-left:8px;text-decoration:none;color:black;">Forget Password?</a>
         </div>
     </div>
 

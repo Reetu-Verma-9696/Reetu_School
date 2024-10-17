@@ -76,7 +76,25 @@ namespace Reetu_School.Controllers
             var data = await _mediator.Send(SaveEmpData);
             return Ok(data);
         }
-
-
+        public IActionResult Registration()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> RegistrationCommand([FromBody] RegistrationCommand obj)
+        {
+            var data = await _mediator.Send(obj);
+            return Ok(data);
+        }
+        public IActionResult ForgetPassword()
+        {
+            return View();
+        }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteSignUpRecord([FromBody] DeleteSignUpRecord req)
+        {
+            var data = await _mediator.Send(req);
+            return Ok(data);
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿var Id = '0';
+﻿var _Id = '0';
 
 function SignUp() {
     var StudentName = $('#txtName').val();
@@ -57,7 +57,7 @@ function SignUp() {
         return;
     }
     var obj = new Object();
-    obj.Id = Id;
+    obj.Id = _Id;
     obj.StudentName = StudentName;
     obj.FatherName = FatherName;
     obj.MotherName = MotherName;
@@ -106,9 +106,9 @@ function SignUp() {
         }
     })
 }
-function GetSignUpDetail() {
+function GetSignUpDetail(Id) {
     $.ajax({
-        url: '/Account/GetSignUpDetail?Id=0',  // Correct URL parameter
+        url: '/Account/GetSignUpDetail?Id=' + Id,  // Correct URL parameter
         type: 'GET',
         dataType: 'json',
         contentType: 'application/json; charset=UTF-8',
@@ -148,8 +148,8 @@ function GetSignUpDetail() {
                             className: "text-nowrap text-center",
                             render: function (data, type, row) {
                                 return `
-        <a class="btn btn-success btn-sm" href="/Account/SignUp?Id=${row.Id}">Edit</a>
-        <a class="btn btn-danger btn-sm" href="/Account/Delete?Id=${row.Id}">Delete</a> `;
+                                    <a class="btn btn-success btn-sm" href="/Account/SignUp?Id=${row.Id}">Edit</a>
+                                    <a onclick="DeleteSignUpRecord(${row.Id})" class="btn btn-danger btn-sm">Delete</a> `;
                             }
 
                         }
@@ -179,8 +179,7 @@ $(document).ready(function () {
 
 
 function fetchSignUpDetails(Id) {
-    debugger
-    Id = Id;
+    _Id = Id;
     $.ajax({
         url: '/Account/GetSignUpDetail?Id=' + Id,
         type: 'GET',
@@ -189,15 +188,20 @@ function fetchSignUpDetails(Id) {
         success: function (data) {
             if (data.responseCode === 200) {
                 data = data.responseResult;
-                $('#txtName').val(data[0].StudentName);
-                $('#txtFatherName').val(data[0].FatherName);
-                $('#txtMotherName').val(data[0].MotherName);
-                $('#txtEmail').val(data[0].Email);
-                $('#txtDate').val(data[0].DOB);
-                $('#txtMobileNumber').val(data[0].MobileNumber);
-                $('#DDLCourses').val(data[0].Courses);
-                $('#txtpassword').val(data[0].Password);
-                $('#txtconfirmpassword').val(data[0].ConfirmPassword);
+                if (data && data.length > 0) {
+                    $('#txtName').val(data[0].StudentName);
+                    $('#txtFatherName').val(data[0].FatherName);
+                    $('#txtMotherName').val(data[0].MotherName);
+                    $('#txtEmail').val(data[0].Email);
+                    $('#txtDate').val(data[0].DOB);
+                    $('#txtMobileNumber').val(data[0].MobileNumber);
+                    $('#DDLCourses').val(data[0].Courses);
+                    $('#txtpassword').val(data[0].Password);
+                    $('#txtconfirmpassword').val(data[0].ConfirmPassword);
+                }
+                else {
+                    console.log('No Data Found');
+                }
             }
         },
         error: function (xhr) {
@@ -205,4 +209,42 @@ function fetchSignUpDetails(Id) {
         }
     });
 }
-
+function DeleteSignUpRecord(Id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You want to submit detail!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var obj = { Id: Id };
+            $.ajax({
+                url: '/Account/DeleteSignUpRecord',
+                type: 'delete',
+                data: JSON.stringify(obj),
+                contentType: 'application/json; charset=UTF-8',
+                success: function (data) {
+                    if (data.responseCode === 200) {
+                        Swal.fire(
+                            'Success!',
+                            data.responseMessage,
+                            'success').then(function () {
+                                location.reload();
+                            });
+                    }
+                    else {
+                        console.log(data);
+                        alert(data.responseMessage);
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                    Swal.fire('Exception!', 'INTERNAL SERVER ERROR.', 'error');
+                }
+            });
+        }
+    })
+}
