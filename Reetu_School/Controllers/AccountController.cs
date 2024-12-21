@@ -1,7 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using Reetu_School.Models;
-
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using static Reetu_School.Common.DataLayer;
 
 namespace Reetu_School.Controllers
 {
@@ -17,6 +22,27 @@ namespace Reetu_School.Controllers
         }
         public IActionResult Login()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                var Identity = (ClaimsIdentity)User.Identity;
+                string UserRole = Identity.Claims.Where(c => c.Type == ClaimTypes.Role).SingleOrDefault().Value.ToString();
+                if(UserRole == "Admin")
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                else if(UserRole == "Employee")
+                {
+                    return RedirectToAction("Index", "Employee");
+                }
+                else if (UserRole == "Customer")
+                {
+                    return RedirectToAction("Index", "Customer");
+                }
+                else 
+                {
+                    return RedirectToAction("SignOut");
+                }
+            }
             return View();
         }
         public IActionResult SignUp()
@@ -40,10 +66,28 @@ namespace Reetu_School.Controllers
             var data = await _mediator.Send(new GetSignUpDetail { Id = Id });
             return Ok(data);
         }
+
+        //for Login
+        [AllowAnonymous]
+        [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Login([FromBody] Login Login)
+        public async Task<IActionResult> Login([FromBody] Login Login, string returnUrl = "")
         {
-            var data = await _mediator.Send(Login);
+            var data = (dynamic)null;
+            data = await _mediator.Send(Login);
+            if (data.responseCode == 200)
+            {
+                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                {
+                    var result = new { data = data, returnURL = returnUrl };
+                    data = ResponseResult.SuccessResponse("Success", result);
+                }
+                else
+                {
+                    var result = new { data = data, returnURL = "0" };
+                    data = ResponseResult.SuccessResponse("Success", result);
+                }
+            }
             return Ok(data);
         }
         [HttpDelete]
@@ -76,6 +120,7 @@ namespace Reetu_School.Controllers
             var data = await _mediator.Send(SaveEmpData);
             return Ok(data);
         }
+        //for signUp
         public IActionResult Registration()
         {
             return View();
@@ -96,5 +141,7 @@ namespace Reetu_School.Controllers
             var data = await _mediator.Send(req);
             return Ok(data);
         }
+       
+
     }
 }

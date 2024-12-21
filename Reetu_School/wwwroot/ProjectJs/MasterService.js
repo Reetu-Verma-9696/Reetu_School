@@ -1,41 +1,27 @@
-﻿ var _Id = '0';
-function btnSubmit() {
-    var Name = $('#textName').val();
-    var About = $('#textAbout').val();
-    var Marks = $('#textMarks').val();
-    var Subject = $('#textSubject').val();
-    var Description = $('#textDescription').val();
-    var ImageFile = $('#txt-file').val();
+﻿var _Id = '0';
+function AddServices() {
+    debugger;
+    var Service = $('#txtServicename').val();
+    var DisplayName = $('#txtDisplayNames').val();
+    var IsActive = $('#ddlisactive').is(':checked') ? 1 : 0;
 
-    if (Name === '') {
-        alert('#textName').focus();
+    if (Service === '') {
+        alert('#txtServicename').focus();
         return;
     }
-    if (About === '') {
-        alert('#textAbout').focus();
+    if (DisplayName === '') {
+        alert('#txtDisplayNames').focus();
         return;
     }
-    if (Marks === '') {
-        alert('#textMarks').focus();
+    if (IsActive === '') {
+        alert('#ddlisactive').focus();
         return;
     }
-    if (Subject === '') {
-        alert('#textSubject').focus();
-        return;
-    }
-    if (Description === '') {
-        alert('#textDescription').focus();
-        return;
-    }
-  
     var obj = new Object();
     obj.Id = _Id;
-    obj.Name = Name;
-    obj.About = About;
-    obj.Marks = Marks;
-    obj.Subject = Subject;
-    obj.Description = Description;
-    obj.ImageFile = ImageFile;
+    obj.Service = Service;
+    obj.DisplayName = DisplayName;
+    obj.IsActive = IsActive;
     Swal.fire({
         title: 'Are you sure?',
         text: "You want to submit detail!",
@@ -47,7 +33,7 @@ function btnSubmit() {
     }).then((result) => {
         if (result.value) {
             $.ajax({
-                url: '/Home/UploadingData',
+                url: '/Home/AddServices',
                 type: 'POST',
                 data: JSON.stringify(obj),
                 contentType: 'application/json; charset=UTF-8',
@@ -73,16 +59,20 @@ function btnSubmit() {
         }
     });
 }
-function GetUploadingData(Id) {
+function Cancel() {
+    window.location.reload();
+}
+function GetServiceDetails(Id) {
     $.ajax({
-        url: '/Home/GetUploadingData?Id=' + Id,
+        url: '/Home/GetServiceDetails?Id=' + Id,
         type: 'GET',
         dataType: 'json',
         contentType: 'application/json; charset=UTF-8',
         success: function (data) {
             if (data.responseCode === 200) {
                 var responseData = data.responseResult;
-                $('#ordertable').DataTable({
+                console.log(responseData);
+                $('#tableServicelist').DataTable({
                     data: responseData,
                     destroy: true,
                     lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
@@ -96,34 +86,28 @@ function GetUploadingData(Id) {
                                 return meta.row + meta.settings._iDisplayStart + 1;
                             }
                         },
-                        { data: "Name" },
-                        { data: "About" },
-                        { data: "Marks" },
-                        { data: "Subject" },
-                        { data: "Description" },
+                        { data: "Service" },
+                        { data: "DisplayName" },
                         {
-                            data: "ImageFile",
+                            data: "IsActive",
                             render: function (data, type, row) {
-                                return `<a href="${data}" target="_blank"><i class="fa fa-download"></i></a>`;
-                            }
+                                return data === 0 ? "False" : "True";
+                            },
                         },
+                        { data: "CreatedDate" },
                         {
                             data: null,
                             searchable: false,
                             sortable: false,
                             className: "text-center",
                             render: function (data, type, row) {
-                                var icon = row.IsActive === false ? "fa-unlock" : "fa-lock";
                                 return `
-                                   <a onclick="EditUploadingData(${row.Id})" class="btn btn-success btn-sm">Edit</a>
-                                   <a onclick="DeleteUploadingData(${row.Id})" class="btn btn-danger btn-sm">Delete</a>
-                                   <a class="btn btn-info btn-sm" onclick="opensendmail();" >Email</a>
+                                   <a onclick="EditService(${row.Id})" class="btn btn-success btn-sm">Edit</a>
+                                   <a onclick="DeleteService(${row.Id})" class="btn btn-danger btn-sm">Delete</a>
                                    `;
-
                             }
                         }
-                    ],
-
+                    ]
                 });
             } else {
                 console.error("Unexpected response code:", data.responseCode);
@@ -134,11 +118,10 @@ function GetUploadingData(Id) {
         }
     });
 }
-
-function EditUploadingData(Id) {
+function EditService(Id) {
     _Id = Id;
     $.ajax({
-        url: '/Home/GetUploadingData?Id=' + Id,
+        url: '/Home/GetServiceDetails?Id=' + Id,
         type: 'GET',
         dataType: 'json',
         contentType: 'application/json; charset=UTF-8',
@@ -147,11 +130,9 @@ function EditUploadingData(Id) {
             if (data.responseCode === 200) {
                 data = data.responseResult;
                 if (data && data.length > 0) {
-                    $('#textName').val(data[0].Name);
-                    $('#textAbout').val(data[0].About);
-                    $('#textMarks').val(data[0].Marks);
-                    $('#textSubject').val(data[0].Subject);
-                    $('#textDescription').val(data[0].Description);
+                    $('#txtServicename').val(data[0].Service);
+                    $('#txtDisplayNames').val(data[0].DisplayName);
+                    $('#ddlisactive').val(data[0].IsActive);
                 }
                 else {
                     alert('hey');
@@ -163,8 +144,7 @@ function EditUploadingData(Id) {
         }
     });
 }
-
-function DeleteUploadingData(Id) {
+function DeleteService(Id) {
     Swal.fire({
         title: 'Are you sure?',
         text: "You want to submit detail!",
@@ -177,7 +157,7 @@ function DeleteUploadingData(Id) {
         if (result.isConfirmed) {
             var obj = { Id: Id };
             $.ajax({
-                url: '/Home/DeleteUploadingData',
+                url: '/Home/DeleteService',
                 type: 'Delete',
                 data: JSON.stringify(obj),
                 contentType: 'application/json; charset=UTF-8',
@@ -203,9 +183,3 @@ function DeleteUploadingData(Id) {
         }
     });
 }
-function opensendmail() {
-    $('#sendmail').modal('show');
-}
-
-
-

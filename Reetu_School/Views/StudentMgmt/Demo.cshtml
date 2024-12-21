@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewData["Title"] = "Demo";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/fontawesome.min.css" integrity="sha512-B46MVOJpI6RBsdcU307elYeStF2JKT87SsHZfRSkjVi4/iZ3912zXi45X5/CBr/GbCyLx6M1GQtTKYRd52Jxgw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/css/bootstrap-switch-button.min.css" rel="stylesheet">
+<style>
+    .block{
+        height: 106px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        width: 114%;
+        background-color: #fff;
+        margin-left: -77px;
+        margin-top:1px;
+        border-top: 3px solid forestgreen;
+    }
+    .button{
+        margin-right: -94px;
+        margin-top: -31px;
+        border: 1px solid forestgreen;
+        width: 2px;
+        background-color: forestgreen;
+        float:right;
+    }
+    .icon{
+        font-size: 16px;
+        font-weight: bold;
+        margin-left: -6px;
+        color: #fff;
+    }
+    
+</style>
+<div class="block">
+    <div class="small-heading mt-3 col-md-11" style="float:left">
+        <h6><i class="fa fa-edit"></i>Create Demo</h6>
+        <div class="col-md-1 button">
+            <span class="icon"><i class="fa fa-plus" id="btnplus"></i></span>
+        </div>
+    </div>
+</div>
+<div class="block" style="margin-top:4%;">
+    <div class="row col-md-12">
+        <table class="table table-responsive " width="100%">
+            <thead>
+                <tr>
+                    <th colspan="12">kjj</th>
+                </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Business Type</th>
+                     <th>Business Name</th>
+                    <th>Visible On</th>
+                     <th>Banner</th>
+                    <th>Is Active</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Demo</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <label>Business Type</label>
+                    <select class="form-control" id="DDLBusinessType">
+                      <option>--SELECT--</option>
+                  </select>
+                </div>
+                <div class="col-md-12">
+                    <label>Business Name</label>
+                    <select class="form-control" id="DDLBusinessName">
+                        <option>--SELECT--</option>
+                    </select>
+                </div>
+                <div class="col-md-12">
+                    <label>Visible On</label>
+                    <select class="form-control" id="DDLVisibleOn">
+                        <option>--SELECT--</option>
+                        <option value="0">App</option>
+                        <option value="1">Web</option>
+                    </select>
+                </div>
+                <div class="col-md-12">
+                    <label>Banner</label>
+                    <input type="file" class="form-control" id="txtbusinesstype" />
+                </div>
+                <br />
+                <div class="col-md-12">
+                    <label>Is Active</label>
+                    <input type="checkbox" data-toggle="switchbutton" checked data-onstyle="success" data-offstyle="danger">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Save</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/projectjs/demo.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/dist/bootstrap-switch-button.min.js"></script>
+}

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using System.ComponentModel.DataAnnotations;
 
 namespace Reetu_School.Models
 {
@@ -56,6 +57,107 @@ namespace Reetu_School.Models
     }
     public class UpdateStatusList : IRequest<object>
     {
-        public int Id { get; set; } 
+        public int Id { get; set; }
+    }
+    public class InsertUserRole : IRequest<object>
+    {
+        public int Id { get; set; }
+        public string UserRole { get; set; }
+        public string IsActive { get; set; }
+        public string Optionaldata { get; set; }
+    }
+    public class GetUserRoleDetails : IRequest<object>
+    {
+        public int Id { get; set; }
+    }
+    public class DeleteUserRole : IRequest<object>
+    {
+        public int Id { get; set; }
+    }
+    public class BindCountry : IRequest<object>
+    {
+       
+    }
+    public class InsertCountry : IRequest<object>
+    {
+        public int Id { get; set; }
+        public string Country { get; set; }
+        public int CountryId { get; set; }
+    }
+    public class GetCountry : IRequest<object>
+    {
+        public int Id { get; set; }
+    }
+    public class InsertState : IRequest<object>
+    {
+        public int Id { get; set; }
+        public string State { get; set; }
+        public int StateId { get; set; }
+        public int CountryId { get; set; }
+    }
+    public class GetState : IRequest<object>
+    {
+        public int Id { get; set; }
+    }
+    public class InsertCity : IRequest<object>
+    {
+        public int Id { get; set; }
+        public string City { get; set; }
+        public int CityId { get; set; }
+        public int StateId { get; set; }
+    }
+    public class GetCity : IRequest<object>
+    {
+        public int Id { get; set; }
+    }
+    public class DeleteState : IRequest<object>
+    {
+        public int Id { get; set; }
+    }
+    public class DeleteCity : IRequest<object>
+    {
+        public int Id { get; set; }
+    }
+    public class BindState : IRequest<object>
+    {
+        public int CountryId { get; set; }
+    }
+    public class BindCity : IRequest<object>
+    {
+        public int StateId { get; set; }
+    }
+    public class AddServices : IRequest<object>
+    {
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "Service Name is required")]
+        public string Service { get; set; }
+
+        [Required(ErrorMessage = "Display Name is required")]
+        public string DisplayName { get; set; }
+
+        public bool IsActive { get; set; }
+    }
+
+
+
+    public class GetServiceDetails : IRequest<object>
+    {
+        public int Id { get; set; }
+        public bool IsActive { get; set; }
+        public int SpCode { get; set; }
+    }
+    public class DeleteService : IRequest<object>
+    {
+        public int Id { get; set; }
+    }
+    public class BindCompany : IRequest<object>
+    {
+        public int Id { get; set; }
+    }
+    public class AssignService : IRequest<object>
+    {
+        public int CompanyId { get; set; }
+        public int ServiceIds { get; set; }
     }
 }

@@ -1,8 +1,13 @@
-﻿using MediatR;
+﻿using Dapper;
+using MediatR;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Reetu_School.Common;
 using Reetu_School.Models;
+using System.Data;
 using System.Dynamic;
 using System.Runtime.InteropServices;
+using System.Security.Claims;
 using static Reetu_School.Common.DataLayer;
 
 namespace Reetu_School.SignUpHandler
@@ -55,22 +60,112 @@ namespace Reetu_School.SignUpHandler
         }
         public async Task<object> Handle(Login request, CancellationToken cancellationToken)
         {
-            var data = (dynamic)null;
-            try
+            var Result = (dynamic)null;
+            using (IDbConnection db = ORMConnection.GetConnection())
             {
-                var param = new
+                try
                 {
-                    UserName = request.UserName,
-                    Password = request.Password,
-                };
-                data = await DataLayer.QueryFirstOrDefaultAsyncWithDBResponse("Proc_Login", param);
+                    if (string.IsNullOrEmpty(request.Email))
+                    {
+                        Result = ResponseResult.FailedResponse("Email is required.");
+                    }
+                    else if (string.IsNullOrEmpty(request.Password))
+                    {
+                        Result = ResponseResult.FailedResponse("Password is required.");
+                    }
+                    else
+                    {
+                        var param = new
+                        {
+                            Email = request.Email,
+                            Password = request.Password
+                        };
+                        db.Open();
+                        Result = await db.QueryFirstOrDefaultAsync<object>("[Proc_Login]", param, commandType: CommandType.StoredProcedure);
+                        if (Convert.ToInt32(Result.responseCode) == 200)
+                        {
+                            List<Claim> claims = new List<Claim>();
+                            claims.Add(new Claim("CustomerId", Convert.ToString(Result.CustomerId)));
+                            claims.Add(new Claim("UserRoleId", Convert.ToString(Result.UserRoleId)));
+                            claims.Add(new Claim("LoginId", Convert.ToString(Result.Id)));
+                            claims.Add(new Claim(ClaimTypes.Email, Convert.ToString(Result.Email)));
+                            claims.Add(new Claim(ClaimTypes.MobilePhone, Convert.ToString(Result.Mobile)));
+                            claims.Add(new Claim(ClaimTypes.Role, Convert.ToString(Result.UserRoleName)));
+                            claims.Add(new Claim(ClaimTypes.GivenName, Convert.ToString(Result.Name)));
+
+
+                            ClaimsIdentity identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                            ClaimsPrincipal principal = new ClaimsPrincipal(identity);
+                            await _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Result = ResponseResult.ExceptionResponse("Internal Server Error", ex.Message.ToString());
+                }
+                finally
+                {
+                    db.Close();
+                }
             }
-            catch (Exception ex)
-            {
-                Serilog.Log.Error(ex.Message, "Login");
-                data = ResponseResult.ExceptionResponse("Internal Server Error", ex.Message);
-            }
-            return data;
+            return Result;
+            //var data = (dynamic)null;
+            //using (IDbConnection db = ORMConnection.GetConnection())
+            //{
+            //    try
+            //    {
+            //        if (string.IsNullOrEmpty(request.UserName))
+            //        {
+            //            return DataLayer.ResponseResult.FailedResponse("UserName is Required");
+            //        }
+            //        if (string.IsNullOrEmpty(request.Password))
+            //        {
+            //            return DataLayer.ResponseResult.FailedResponse("Password is Required");
+            //        }
+            //        var param = new
+            //        {
+            //            UserName = request.UserName,
+            //            Password = request.Password,
+            //        };
+            //        db.Open();
+            //    data = await db.QueryFirstOrDefaultAsync<object>("Proc_Login", param, commandType: CommandType.StoredProcedure);
+            //        data = await DataLayer.QueryFirstOrDefaultAsyncWithDBResponse("Proc_Login", param);
+            //        if (Convert.ToInt32(data.responseCode) == 200)
+            //        {
+            //            List<Claim> claims = new List<Claim>();
+            //            claims.Add(new Claim(ClaimTypes.Name, Convert.ToString(data.UserRoleCode)));
+            //            claims.Add(new Claim("StateName", Convert.ToString(data.StateName)));
+            //            claims.Add(new Claim("WebsiteId", Convert.ToString(data.WebsiteId)));
+            //            claims.Add(new Claim("CustomerId", Convert.ToString(data.CustomerId)));
+            //            claims.Add(new Claim("UserRoleId", Convert.ToString(data.UserRoleId)));
+            //            claims.Add(new Claim("LoginId", Convert.ToString(data.Id)));
+            //            claims.Add(new Claim(ClaimTypes.Email, Convert.ToString(data.Email)));
+            //            claims.Add(new Claim(ClaimTypes.MobilePhone, Convert.ToString(data.Mobile)));
+            //            claims.Add(new Claim(ClaimTypes.Role, Convert.ToString(data.UserRoleName)));
+            //            claims.Add(new Claim(ClaimTypes.GivenName, Convert.ToString(data.Name)));
+
+            //            ClaimsIdentity identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            //            ClaimsPrincipal principal = new ClaimsPrincipal(identity);
+            //            await _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+            //            return DataLayer.ResponseResult.SuccessResponse("Login Successfully", data);
+            //        }
+            //        else
+            //        {
+            //            return DataLayer.ResponseResult.FailedResponse("Invalid UserName or Password");
+            //        }
+            //    }
+            //    catch(Exception ex)
+            //    {
+            //        Serilog.Log.Error(ex, "Error occurred during Sign-up");
+            //        return ResponseResult.ExceptionResponse("Internal Server Error", ex.Message);
+            //    }
+            //    finally
+            //    {
+            //        db.Close();
+            //        GC.SuppressFinalize(this);
+            //    }
+            //}
         }
         public async Task<object> Handle(GetSignUpDetail request, CancellationToken cancellationToken)
         {
@@ -189,6 +284,7 @@ namespace Reetu_School.SignUpHandler
             var data = (dynamic)null;
             try
             {
+                var Identity = (ClaimsIdentity)_httpContextAccessor.HttpContext.User.Identity;
                 var param = new
                 {
                     Id = request.Id,
@@ -196,7 +292,10 @@ namespace Reetu_School.SignUpHandler
                     Email = request.Email,
                     MobileNo = request.MobileNo,
                     Password = request.Password,
-                    ConfirmPassword = request.ConfirmPassword,
+                    CountryId = request.CountryId,
+                    StateId = request.StateId,
+                    CityId = request.CityId,
+                    CreatedIP = _httpContextAccessor.HttpContext.Request.HttpContext.Connection.RemoteIpAddress.ToString()
                 };
                 data = await DataLayer.QueryFirstOrDefaultAsyncWithDBResponse("Proc_RegistrationCommand", param);
             }

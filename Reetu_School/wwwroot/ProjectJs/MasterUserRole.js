@@ -1,41 +1,26 @@
-﻿ var _Id = '0';
-function btnSubmit() {
-    var Name = $('#textName').val();
-    var About = $('#textAbout').val();
-    var Marks = $('#textMarks').val();
-    var Subject = $('#textSubject').val();
-    var Description = $('#textDescription').val();
-    var ImageFile = $('#txt-file').val();
+﻿var _Id = '0';
+function InsertUserRole() {
+    var UserRole = $('#txtUserRole').val();
+    var IsActive = $('#txtisactive').val();
+    var Optionaldata = $('#ddloptional').val();
 
-    if (Name === '') {
-        alert('#textName').focus();
+    if (UserRole === '') {
+        alert('#txtUserRole').focus();
         return;
     }
-    if (About === '') {
-        alert('#textAbout').focus();
+    if (IsActive === '') {
+        alert('#txtisactive').focus();
         return;
     }
-    if (Marks === '') {
-        alert('#textMarks').focus();
+    if (Optionaldata === '') {
+        alert('#ddloptional').focus();
         return;
     }
-    if (Subject === '') {
-        alert('#textSubject').focus();
-        return;
-    }
-    if (Description === '') {
-        alert('#textDescription').focus();
-        return;
-    }
-  
     var obj = new Object();
     obj.Id = _Id;
-    obj.Name = Name;
-    obj.About = About;
-    obj.Marks = Marks;
-    obj.Subject = Subject;
-    obj.Description = Description;
-    obj.ImageFile = ImageFile;
+    obj.UserRole = UserRole;
+    obj.IsActive = IsActive;
+    obj.Optionaldata = Optionaldata;
     Swal.fire({
         title: 'Are you sure?',
         text: "You want to submit detail!",
@@ -47,7 +32,7 @@ function btnSubmit() {
     }).then((result) => {
         if (result.value) {
             $.ajax({
-                url: '/Home/UploadingData',
+                url: '/Home/InsertUserRole',
                 type: 'POST',
                 data: JSON.stringify(obj),
                 contentType: 'application/json; charset=UTF-8',
@@ -73,16 +58,20 @@ function btnSubmit() {
         }
     });
 }
-function GetUploadingData(Id) {
+function Cancel() {
+    window.location.reload();
+}
+function GetUserRoleDetails(Id) {
     $.ajax({
-        url: '/Home/GetUploadingData?Id=' + Id,
+        url: '/Home/GetUserRoleDetails?Id=' + Id,
         type: 'GET',
         dataType: 'json',
         contentType: 'application/json; charset=UTF-8',
         success: function (data) {
             if (data.responseCode === 200) {
                 var responseData = data.responseResult;
-                $('#ordertable').DataTable({
+                console.log(responseData);
+                $('#tablelist').DataTable({
                     data: responseData,
                     destroy: true,
                     lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
@@ -96,34 +85,28 @@ function GetUploadingData(Id) {
                                 return meta.row + meta.settings._iDisplayStart + 1;
                             }
                         },
-                        { data: "Name" },
-                        { data: "About" },
-                        { data: "Marks" },
-                        { data: "Subject" },
-                        { data: "Description" },
+                        { data: "UserRole" },
                         {
-                            data: "ImageFile",
+                            data: "IsActive",
                             render: function (data, type, row) {
-                                return `<a href="${data}" target="_blank"><i class="fa fa-download"></i></a>`;
-                            }
+                                return data === "True" ? "True" : "False";
+                            },
                         },
+                        { data: "OptionalData" },
+                        { data: "CreatedDate" },
                         {
                             data: null,
                             searchable: false,
                             sortable: false,
                             className: "text-center",
                             render: function (data, type, row) {
-                                var icon = row.IsActive === false ? "fa-unlock" : "fa-lock";
                                 return `
-                                   <a onclick="EditUploadingData(${row.Id})" class="btn btn-success btn-sm">Edit</a>
-                                   <a onclick="DeleteUploadingData(${row.Id})" class="btn btn-danger btn-sm">Delete</a>
-                                   <a class="btn btn-info btn-sm" onclick="opensendmail();" >Email</a>
+                                   <button onclick="EditUserRole(${row.Id})" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></button>
+                                   <button onclick="DeleteUserRole(${row.Id})" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                                    `;
-
                             }
                         }
-                    ],
-
+                    ]
                 });
             } else {
                 console.error("Unexpected response code:", data.responseCode);
@@ -134,11 +117,10 @@ function GetUploadingData(Id) {
         }
     });
 }
-
-function EditUploadingData(Id) {
+function EditUserRole(Id) {
     _Id = Id;
     $.ajax({
-        url: '/Home/GetUploadingData?Id=' + Id,
+        url: '/Home/GetUserRoleDetails?Id=' + Id,
         type: 'GET',
         dataType: 'json',
         contentType: 'application/json; charset=UTF-8',
@@ -147,11 +129,9 @@ function EditUploadingData(Id) {
             if (data.responseCode === 200) {
                 data = data.responseResult;
                 if (data && data.length > 0) {
-                    $('#textName').val(data[0].Name);
-                    $('#textAbout').val(data[0].About);
-                    $('#textMarks').val(data[0].Marks);
-                    $('#textSubject').val(data[0].Subject);
-                    $('#textDescription').val(data[0].Description);
+                    $('#txtUserRole').val(data[0].UserRole);
+                    $('#txtisactive').val(data[0].IsActive);
+                    $('#ddloptional').val(data[0].OptionalData);
                 }
                 else {
                     alert('hey');
@@ -163,8 +143,7 @@ function EditUploadingData(Id) {
         }
     });
 }
-
-function DeleteUploadingData(Id) {
+function DeleteUserRole(Id) {
     Swal.fire({
         title: 'Are you sure?',
         text: "You want to submit detail!",
@@ -177,7 +156,7 @@ function DeleteUploadingData(Id) {
         if (result.isConfirmed) {
             var obj = { Id: Id };
             $.ajax({
-                url: '/Home/DeleteUploadingData',
+                url: '/Home/DeleteUserRole',
                 type: 'Delete',
                 data: JSON.stringify(obj),
                 contentType: 'application/json; charset=UTF-8',
@@ -203,9 +182,3 @@ function DeleteUploadingData(Id) {
         }
     });
 }
-function opensendmail() {
-    $('#sendmail').modal('show');
-}
-
-
-
