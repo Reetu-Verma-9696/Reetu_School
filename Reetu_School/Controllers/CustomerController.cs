@@ -16,5 +16,9 @@ namespace Reetu_School.Controllers
         {
             return View();
         }
+        public IActionResult Index()
+        {
+            return View();
+        }
     }
 }

@@ -1,14 +1,26 @@
 ﻿
 @{
     ViewData["Title"] = "Registration";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+   // Layout = null;
 }
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/fontawesome.min.css" integrity="sha512-B46MVOJpI6RBsdcU307elYeStF2JKT87SsHZfRSkjVi4/iZ3912zXi45X5/CBr/GbCyLx6M1GQtTKYRd52Jxgw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+@*<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Reetu_School.styles.css" asp-append-version="true" />
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/fontawesome.min.css" integrity="sha512-B46MVOJpI6RBsdcU307elYeStF2JKT87SsHZfRSkjVi4/iZ3912zXi45X5/CBr/GbCyLx6M1GQtTKYRd52Jxgw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+*@
 <style>
     .card {
-        height: 450px !important;
+        height: 460px !important;
         width: 324px !important;
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
         margin: auto;
@@ -39,137 +51,97 @@
         margin-left: 72px;
     }
 </style>
-<div class="card">
-    <h4>Sign Up</h4>
-    <div class="form-group" style="position:relative;">
-        <div class="input-group mb-1" style="margin-top:18px;">
-            <input type="text" id="txtFullName" class="form-control" placeholder="Full Name" required="">
-            <div class="input-group-append">
-                <span class="input-group-text bg-white cus-append">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                </span>
+    <div class="card">
+        <h4>Sign Up</h4>
+        <div class="form-group" style="position:relative;margin-top:8px;">
+            <div class="input-group mb-1" style="margin-top:18px;">
+                <input type="text" id="txtFullName" class="form-control" placeholder="Full Name" required="">
+                <div class="input-group-append">
+                    <span class="input-group-text bg-white cus-append">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                    </span>
+                </div>
             </div>
-        </div>
-        <div class="input-group mb-1" style="margin-top:18px;">
-            <input type="email" id="txtEmail" class="form-control" placeholder="Email" required="">
-            <div class="input-group-append">
-                <span class="input-group-text bg-white cus-append">
-                    <i class="fa fa-envelope" aria-hidden="true"></i>
-                </span>
+            <div class="input-group mb-1" style="margin-top:18px;">
+                <input type="email" id="txtEmail" class="form-control" placeholder="Email" required="">
+                <div class="input-group-append">
+                    <span class="input-group-text bg-white cus-append">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </span>
+                </div>
             </div>
-        </div>
-        <div class="input-group mb-1" style="margin-top:18px;">
-            <input type="text" id="txtMobile" class="form-control" placeholder="Mobile No" required="">
-            <div class="input-group-append">
-                <span class="input-group-text bg-white cus-append">
-                    <i class="fa fa-phone" aria-hidden="true"></i>
-                </span>
+            <div class="input-group mb-1" style="margin-top:18px;">
+                <input type="text" id="txtMobile" class="form-control" placeholder="Mobile No" required="">
+                <div class="input-group-append">
+                    <span class="input-group-text bg-white cus-append">
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                    </span>
+                </div>
             </div>
-        </div>
-        <div class="input-group mb-1" style="margin-top:18px;">
-            <input type="password" id="password" class="form-control" placeholder="Password" required="">
-            <div class="input-group-append">
-                <span class="input-group-text bg-white cus-append">
-                    <i class="fa fa-lock" aria-hidden="true"></i>
-                </span>
+            <div class="input-group mb-1" style="margin-top:18px;">
+                <input type="password" id="password" class="form-control" placeholder="Password" required="">
+                <div class="input-group-append">
+                    <span class="input-group-text bg-white cus-append">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                    </span>
+                </div>
             </div>
-        </div>
-        <div class="input-group mb-1" style="margin-top:18px;">
-            <input type="password" id="Confirmpassword" class="form-control" placeholder="Confirm Password" required="">
-            <div class="input-group-append">
-                <span class="input-group-text bg-white cus-append">
-                    <i class="fa fa-lock" aria-hidden="true"></i>
-                </span>
+            <div>
+           
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="input-group mb-1" style="margin-top:18px;width:96px;">
+                        <select class="form-control" id="DDLCountry" onchange="BindState();">
+                                <option value="0">::Select::</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group mb-1" style="margin-top:18px;width:96px;">
+                        <select class="form-control" id="DDLState" onchange="BindCity();">
+                            <option value="0">::Select::</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group mb-1" style="margin-top:18px;width:77px;">
+                            <select class="form-control" id="DDLCity">
+                            <option value="0">::Select::</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+               
+                
+               
             </div>
-        </div>
-        <div class="col-md-4"></div>
-        <div class="col-md-3">
-            <button class="btn btn-sm btn-danger button" onclick="SaveRegistrationData();">Register</button>
-        </div>
-        <div class="col-md-8 custom-class">
-            <span style="margin-left:31px;">-OR-</span><br />
-            <a  href="/Account/Login" style="margin-left:-30px;text-decoration:none;color:black;">I already have a account</a><br />
+            <div class="col-md-4"></div>
+            <div class="col-md-3">
+                <button class="btn btn-sm btn-danger button" onclick="SaveRegistrationData();">Register</button>
+            </div>
+            <div class="col-md-8 custom-class">
+                <span style="margin-left:31px;">-OR-</span><br />
+                <a href="/Account/Login" style="margin-left:-30px;text-decoration:none;color:black;">I already have a account</a><br />
+            </div>
         </div>
     </div>
-</div>
+    
 @section Scripts{
-    <script>
-        var Id = '0';
-        function SaveRegistrationData(){
-            var UserName = $('#txtFullName').val();
-            var Email = $('#txtEmail').val();
-            var MobileNo = $('#txtMobile').val();
-            var Password = $('#password').val();
-            var ConfirmPassword = $('#Confirmpassword').val();
-            if (UserName === ''){
-                alertError('Enter UserName');
-                $('#txtFullName').focus();
-                return;
-            }
-            if (Email === ''){
-                alertError('Enter Email');
-                $('#txtEmail').focus();
-                return;
-            }
-            if (MobileNo === '') {
-                alertError('Enter MobileNo');
-                $('#txtMobile').focus();
-                return;
-            }
-            if (Password === '') {
-                alertError('Enter Password');
-                $('#password').focus();
-                return;
-            }
-            if (ConfirmPassword === '') {
-                alertError('Enter ConfirmPassword');
-                $('#Confirmpassword').focus();
-                return;
-            }
-            var obj = new Object();
-            obj.Id = Id;
-            obj.UserName = UserName;
-            obj.Email = Email;
-            obj.MobileNo = MobileNo;
-            obj.Password = Password;
-            obj.ConfirmPassword = ConfirmPassword;
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You want to submit detail!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes'
-            }).then((result) => {
-                if (result.value) {
-                    $.ajax({
-                        url: '/Account/RegistrationCommand',
-                        type: 'POST',
-                        data: JSON.stringify(obj),
-                        contentType: 'application/json; charset=UTF-8',
-                        success: function (data) {
-                            if (data.responseCode === 200) {
-                                Swal.fire(
-                                    'Success!',
-                                    data.responseMessage,
-                                    'success').then(function () {
-                                        location.reload();
-                                    });
-                            }
-                            else {
-                                console.log(data);
-                                alert(data.responseMessage);
-                            }
-                        },
-                        error: function (xhr) {
-                            console.log(xhr);
-                            Swal.fire('Exception!', 'INTERNAL SERVER ERROR.', 'error');
-                        }
-                    });
-                }
-            })
+        <script src="~/projectjs/registration.js"></script>
+        <script>
+            $(document).ready(function () {
+                BindCountry();
+                BindState();
+                BindCity();
+            });
+            $('#DDLCountry').on('change',function(){
+                BindState();
+            });
+            $('#DDLState').on('change', function () {
+                BindCity();
+            });
+        </script>
 
-        }
-    </script>
 }
+   
+

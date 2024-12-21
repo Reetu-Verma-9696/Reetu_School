@@ -39,5 +39,13 @@ namespace Reetu_School.Controllers
             var data = await _mediator.Send(obj);
             return View();
         }
+        public IActionResult Demo()
+        {
+            return View();
+        }
+        public IActionResult Cards()
+        {
+            return View();
+        }
     }
 }

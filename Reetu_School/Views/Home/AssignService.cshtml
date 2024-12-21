@@ -1,0 +1,158 @@
+﻿@{
+    ViewData["Title"] = "AssignService";
+}
+
+<div class="block">
+    <h5>Assign Services</h5>
+    <div class="row">
+        <div class="col-md-4">
+            <label>Company<span style="color:red;">*</span></label>
+            <select class="form-control" id="DDLCompany">
+                <option>--Select--</option>
+            </select>
+        </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <table id="Servicelist" class="table-bordered table-striped" style="margin-top:32px;">
+            <thead style="background-color:#98891e99;">
+                <tr>
+                    <th><input type="checkbox" class="checkbox" id="select_all" /></th>
+                    <th>Service</th>
+                    <th>DisplayName</th>
+                    <th>IsActive</th>
+                    <th>Entry At</th>
+                </tr>
+            </thead>
+            <tbody id="tableServicelist"></tbody>
+        </table>
+    </div>
+    <div class="clearfix">
+        <div class="row">
+            <div class="col-md-11"></div>
+            <div class="col-md-1">
+                <button class="btn btn-success btn-sm" onclick="AssignService();">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            GetServiceDetails(0);
+            BindCompany();
+        });
+        var _Id = '0';
+        $('body').on('click', '#select_all', function () {
+            if (this.checked) {
+                $('.checkbox').each(function () {
+                    this.checked = true;
+                });
+            } else {
+                $('.checkbox').each(function () {
+                    this.checked = false;
+                });
+            }
+        });
+        $('body').on('click', '.checkbox', function () {
+            if ($('.checkbox:checked').length == $('.checkbox').length) {
+                $('#select_all').prop('checked', true);
+            } else {
+                $('#select_all').prop('checked', false);
+            }
+        });
+        function BindCompany() {
+            $.post('/Home/BindCompany').done(function (data) {
+                if (data.responseCode === 200) {
+                    data = data.responseResult;
+                    $("#DDLCompany").empty().append('<option value="0">--Select--</option>');
+                    for (var i = 0; i < data.length; i++) {
+                        $("#DDLCompany").append('<option data-Id="' + data[i].Id + '" value="' + data[i].CompanyId + '">' + data[i].Name + '</option>');
+
+                    }
+
+                }
+                else {
+                    alert(data.responseMessage);
+                }
+            }).fail(function (xhr) {
+                console.log(xhr);
+            });
+        }
+
+        $('body').on('change', '#DDLCompany', function(e){
+            let CompanyId = $(this).val();
+            GetServiceDetails(CompanyId);
+        });
+        let GetServiceDetails = (CompanyId) => {
+
+            let obj = {
+                Id: 0,
+                IsActive: 1,
+                SpCode: 1,
+                CompanyId: CompanyId
+            };
+            $.post('/Home/GetServiceDetails', obj).done(function (res) {
+                if (res.responseCode == 200) {
+                    res = res.responseResult;
+                    let html = '';
+                    if (Array.isArray(res)) {
+                        res.forEach((v, i) => {
+                            html += `
+                                                  <tr>
+                                                         <td style="text-align:center;" id="checkservice"><input type="checkbox" class="checkbox" value="${v.Id}" ${v.IsAssign ? 'checked':''}></td>
+                                                 <td style="text-align:center;">${v.Service}</td>
+                                                 <td style="text-align:center;">${v.DisplayName}</td>
+                                                 <td>
+                                                   <label class="switch">
+                                                             <input type="checkbox" ${v.IsActive ? 'checked' : ''} /><span class="slider round"></span>
+                                                   </label>
+                                                  </td>
+                                                  <td style="text-align:center;">${v.CreatedDate}</td>
+                                                     </tr>
+                                                      `;
+                        });
+                    } else {
+                        console.error('Response is not an array:', res);
+
+                    }
+                    $('#tableServicelist').empty().append(html);
+
+                } else {
+                    console.error('Response code not 200:', res.responseCode);
+                }
+            }).fail(function (xhr) {
+
+                console.log(xhr);
+            });
+        };
+        const AssignService = () =>{
+            let obj = {
+                CompanyId : $('#DDLCompany').val(),
+                ServiceIds: ''
+            }
+            if(obj.CompanyId = 0){
+                alertError('Select Company');
+                $('#$DDLCompany').focus();
+                return;
+            }
+            var ServiceArr = [];
+            $('#checkservice input:checked').each(function(){
+                ServiceArr.push($(this).val());
+            });
+            $.post('/Home/AssignService', obj).done(function(){
+                if(data.responseCode == 200){
+                    alertSuccess(data.responseMessage);
+                    $('.icon-cross').click();
+                }
+                else if (data.responseCode == 500) {
+                    alertSuccess(data.responseMessage);
+                }
+                else{
+                    alertWarning(data.responseMessage);
+                }
+            }).fail(function(xhr){
+                console.log(xhr);
+                alertError('Server Error');
+            });
+        }
+    </script>
+}

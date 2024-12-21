@@ -20,7 +20,7 @@ namespace Reetu_School.Models
     }
     public class Login : IRequest<object>
     {
-        public string UserName { get; set; }
+        public string Email { get; set; }
         public string Password { get; set; }
     }
     public class GetSignUpDetail : IRequest<object>
@@ -74,7 +74,9 @@ namespace Reetu_School.Models
         public string Email { get; set; }
         public string MobileNo { get; set; }
         public string Password { get; set; }
-        public string ConfirmPassword { get; set; }
+        public int CountryId { get; set; }
+        public int StateId { get; set; }
+        public int CityId { get; set; }
     }
     public class DeleteSignUpRecord : IRequest<object>
     {

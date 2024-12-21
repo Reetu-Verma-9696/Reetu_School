@@ -191,10 +191,10 @@ function StudentCommandList(Id) {
                                 var icon = row.IsActive === false ? "fa-unlock" : "fa-lock";
                                 var btnclr = row.IsActive === false ? "btn-success":"btn-danger";
                                 return `
-                                   <a onclick="EditUploadingData(${row.Id})" class="btn btn-success btn-sm"><i class="fa fa-edit"><i></a>
+                                   <a onclick="EditUploadingData(${row.Id})" class="btn btn-success btn-sm"></a><a><button onclick="UpdateStatusList(${row.Id})" class="btn ' + btnclr + ' btn-xs"><span class="fa ' + icon + '"></span></button></a>
                                    <a onclick="DeleteUploadingData(${row.Id})" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                    <a class="btn btn-info btn-sm"><i class="fa fa-envelope"></i></a>
-                                   <a><button onclick="UpdateStatusList(${row.Id})" class="btn ' + btnclr + ' btn-xs"><span class="fa ' + icon + '"></span></button></a>
+                                   
                                    `;
 
                             }
