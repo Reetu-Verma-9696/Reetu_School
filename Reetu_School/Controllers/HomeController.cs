@@ -103,10 +103,10 @@ namespace Reetu_School.Controllers
             var data = await _mediator.Send(obj);
             return Ok(data);
         }
-        [HttpGet]
-        public async Task<IActionResult> GetCountry(int Id)
+        [HttpPost]
+        public async Task<IActionResult> GetCountry(GetCountry obj)
         {
-            var data = await _mediator.Send(new GetCountry { Id = Id });
+            var data = await _mediator.Send(obj);
             return Ok(data);
         }
         [HttpPost]
@@ -129,10 +129,10 @@ namespace Reetu_School.Controllers
             var data = await _mediator.Send(req);
             return Ok(data);
         }
-        [HttpGet]
-        public async Task<IActionResult> GetState(int Id)
+        [HttpPost]
+        public async Task<IActionResult> GetState(GetState obj)
         {
-            var data = await _mediator.Send(new GetState { Id = Id });
+            var data = await _mediator.Send(obj);
             return Ok(data);
         }
         [HttpPost]
@@ -141,10 +141,10 @@ namespace Reetu_School.Controllers
             var data = await _mediator.Send(req);
             return Ok(data);
         }
-        [HttpGet]
-        public async Task<IActionResult> GetCity(int Id)
+        [HttpPost]
+        public async Task<IActionResult> GetCity(GetCity obj)
         {
-            var data = await _mediator.Send(new GetCity { Id = Id });
+            var data = await _mediator.Send(obj);
             return Ok(data);
         }
         [HttpDelete]
@@ -208,6 +208,40 @@ namespace Reetu_School.Controllers
         {
             var data = await _mediator.Send(obj);
             return Ok(data);
+        }
+        public IActionResult StudentRegistration()
+        {
+            return View();
+        }
+        public IActionResult ManageStudents()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> SaveRegdata([FromBody] SaveRegdata req)
+        {
+            var data = await _mediator.Send(req);
+            return Ok(data);
+        }
+        public IActionResult AddProgram()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> SaveProgram([FromBody] SaveProgram req)
+        {
+            var data = await _mediator.Send(req);
+            return Ok(data);
+        }
+        [HttpPost]
+        public async Task<IActionResult> GetStudentDetails(GetStudentDetails req)
+        {
+            var data = await _mediator.Send(req);
+            return Ok(data);
+        }
+        public IActionResult ViewProfile()
+        {
+            return View();
         }
     }
 }

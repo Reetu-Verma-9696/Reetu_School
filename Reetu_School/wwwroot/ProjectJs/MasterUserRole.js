@@ -132,6 +132,7 @@ function EditUserRole(Id) {
                     $('#txtUserRole').val(data[0].UserRole);
                     $('#txtisactive').val(data[0].IsActive);
                     $('#ddloptional').val(data[0].OptionalData);
+                    $('#staticBackdrop').modal('show');
                 }
                 else {
                     alert('hey');

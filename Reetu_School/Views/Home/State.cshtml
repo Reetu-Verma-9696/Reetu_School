@@ -1,56 +1,90 @@
 ﻿@{
     ViewData["Title"] = "State";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
 }
-<link href="~/css/jquery.datatables.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/fontawesome.min.css" integrity="sha512-B46MVOJpI6RBsdcU307elYeStF2JKT87SsHZfRSkjVi4/iZ3912zXi45X5/CBr/GbCyLx6M1GQtTKYRd52Jxgw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<div class="block">
-    <h6>Add User Role</h6>
-    <br />
-    <div class="row">
-        <div class="col-md-3">
-            <label>State<span style="color:red">*</span></label>
-            <input type="text" class="form-control" id="txtState" />
-        </div>
-        <div class="col-md-3">
-            <label>StateId<span style="color:red">*</span></label>
-            <input type="text" class="form-control" id="txtStateId" />
-        </div>
-        <div class="col-md-3">
-            <label>CountryId<span style="color:red">*</span></label>
-            <input type="text" class="form-control" id="txtCountryId" />
-        </div>
-        <div class="col-md-3">
-            <button class="btn btn-success btn-sm buttons" onclick="InsertState();">Submit</button>
-            <button class="btn btn-info btn-sm buttons" onclick="Cancel();">Cancel</button>
-        </div>
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <h5>Add State</h5>
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="button" class="btn btn-primary waves-effect waves-light"
+                                            data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                            </div>
+                            <hr />
+                            <h5>State Details</h5>
+                            <div class="table-responsive">
+                                <table id="StateTable" class="table table-bordered table-striped mb-0">
+                                    <thead class="table-primary">
+                                        <tr>
+                                            <th style="text-align:center;">Sr.No</th>
+                                            <th style="text-align:center;">State</th>
+                                            <th style="text-align:center;">StateId</th>
+                                            <th style="text-align:center;">CountryId</th>
+                                            <th style="text-align:center;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="Statelist"></tbody>
+                                </table>
+                            </div>
 
-    </div>
-    <hr />
-    <div class="clearfix">
-        <h6>State Details</h6>
-        <div class="row">
-            <table id="Countrylist" class="table-bordered table-striped">
-                <thead style="background-color:#98891e99;">
-                    <tr>
-                        <th>Sr.No</th>
-                        <th>State</th>
-                        <th>StateId</th>
-                        <th>CountryId</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <div class="col-sm-6 col-md-4 col-xl-3">
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+             data-bs-keyboard="false" tabindex="-1" role="dialog"
+             aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">
+                            Add State
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                            <label>State<span style="color:red">*</span></label>
+                            <input type="text" class="form-control" id="txtState" />
+                        </div>
+                        <div class="col-md-12">
+                            <label>StateId<span style="color:red">*</span></label>
+                            <input type="text" class="form-control" id="txtStateId" />
+                        </div>
+                        <div class="col-md-12">
+                            <label>CountryId<span style="color:red">*</span></label>
+                            <input type="text" class="form-control" id="txtCountryId" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal" onclick="Cancel();">
+                            Close
+                        </button>
+                        <button type="button" class="btn btn-primary waves-effect waves-light" onclick="InsertState();">Save </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>>
 </div>
-
-
 @section Scripts{
-    <script src="~/js/jquery-3.5.1.min.js"></script>
-    <script src="~/js/jquery.datatables.min.js"></script>
     <script>
         $(document).ready(function () {
             GetState(0);
@@ -116,54 +150,45 @@
             });
         }
         function GetState(Id) {
-            $.ajax({
-                url: '/Home/GetState?Id=' + Id,
-                type: 'GET',
-                dataType: 'json',
-                contentType: 'application/json; charset=UTF-8',
-                success: function (data) {
-                    if (data.responseCode === 200) {
-                        var responseData = data.responseResult;
-                        console.log(responseData);
-                        $('#Countrylist').DataTable({
-                            data: responseData,
-                            destroy: true,
-                            lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-                            columns: [
-                                {
-                                    data: null,
-                                    searchable: false,
-                                    sortable: false,
-                                    className: "text-center",
-                                    render: function (data, type, row, meta) {
-                                        return meta.row + meta.settings._iDisplayStart + 1;
-                                    }
-                                },
-                                { data: "State" },
-                                { data: "StateId" },
-                                { data: "CountryId" },
-                                {
-                                    data: null,
-                                    searchable: false,
-                                    sortable: false,
-                                    className: "text-center",
-                                    render: function (data, type, row) {
-                                        return `
-                                                                   <button onclick="EditState(${row.Id})" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></button>
-                                                                                   <button onclick="DeleteState(${row.Id})" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                                                   `;
-                                    }
-                                }
-                            ]
-                        });
+            let obj = { Id: Id };
+            $.post('/Home/GetState', obj)
+                .done(function (res) {
+                    if (res.responseCode === 200) {
+                        let data = res.responseResult;
+                        let html = '';
+
+                        if (Array.isArray(data) && data.length > 0) {
+                            data.forEach((v, i) => {
+                                html += `
+                                            <tr>
+                                                <td style="text-align:center;">${i + 1}</td>
+                                                        <td style="text-align:center;">${v.State}</td>
+                                                        <td style="text-align:center;">${v.StateId}</td>
+                                                        <td style="text-align:center;">${v.CountryId}</td>
+                                                <td style="text-align:center;">
+                                                            <button onclick="EditState(${v.Id})" class="btn btn-success btn-sm">
+                                                        <i class="fa fa-edit"></i>
+                                                    </button>
+                                                    <button onclick="DeleteCity(${v.Id})" class="btn btn-danger btn-sm">
+                                                                <i class="far fa-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>`;
+                            });
+                        } else {
+                            html = '<tr><td colspan="5" style="text-align:center;">No data found</td></tr>';
+                        }
+
+                        $('#Statelist').html(html);
                     } else {
-                        console.error("Unexpected response code:", data.responseCode);
+                        console.error('Response code not 200:', res.responseCode, res.responseMessage);
+                        Swal.fire('Error', 'Failed to load city details.', 'error');
                     }
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error in AJAX request:", status, error);
-                }
-            });
+                })
+                .fail(function (xhr) {
+                    console.error('Request failed:', xhr);
+                    Swal.fire('Error', 'Unable to fetch data from the server.', 'error');
+                });
         }
         function Cancel() {
             window.location.reload();
@@ -172,7 +197,7 @@
             _Id = Id;
             $.ajax({
                 url: '/Home/GetState?Id=' + Id,
-                type: 'GET',
+                type: 'POST',
                 dataType: 'json',
                 contentType: 'application/json; charset=UTF-8',
                 success: function (data) {
@@ -183,6 +208,7 @@
                             $('#txtState').val(data[0].State);
                             $('#txtStateId').val(data[0].StateId);
                             $('#txtCountryId').val(data[0].CountryId);
+                            $('#staticBackdrop').modal('show');
                         }
                         else {
                             alert('hey');

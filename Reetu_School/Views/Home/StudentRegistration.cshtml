@@ -1,0 +1,124 @@
+﻿@{
+    ViewData["Title"] = "StudentRegistration";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+<style>
+    .con{
+        overflow:hidden;
+    }
+</style>
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Student Details</h5>
+                            <hr />
+                            <div class="row" style="margin-top:15px;">
+                                <div class=col-md-3>
+                                    <label class="form-label">First Name<span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" id="StudentFirstname"/>
+                                </div>
+                                <div class=col-md-3>
+                                    <label class="form-label">Middle Name<span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" id="StudentMiddlename" />
+                                </div>
+                                <div class=col-md-3>
+                                    <label class="form-label">Last Name<span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" id="StudentLastname" />
+                                </div>
+                                <div class=col-md-3>
+                                    <label class="form-label">Father First Name<span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" id="FatherFirstname" />
+                                </div>
+                                <div class="row" style="margin-top:15px;">
+                                <div class=col-md-3>
+                                    <label class="form-label">Father Middle Name<span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" id="FatherMiddlename" />
+                                </div>
+                                <div class=col-md-3>
+                                    <label class="form-label">Father Last Name<span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" id="FatherLastname" />
+                                </div>
+                                <div class=col-md-3>
+                                    <label class="form-label">Date Of Birth<span style="color:red;">*</span></label>
+                                    <input type="date" class="form-control" id="txt_dob" />
+                                </div>
+                                <div class=col-md-3>
+                                    <label class="form-label">Gender<span style="color:red;">*</span></label>
+                                    <Select class="form-control" id="txt_Gender">
+                                        <option>--Select--</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </Select>
+                                </div>
+                                </div>
+                                <div class="row" style="margin-top:15px;">
+                                <div class=col-md-3>
+                                    <label class="form-label">Category<span style="color:red;">*</span></label>
+                                    <Select class="form-control" id="txt_Category">
+                                        <option>--Select--</option>
+                                        <option value="OBC">OBC</option>
+                                        <option value="General">General</option>
+                                        <option value="SC/ST">SC/ST</option>
+                                    </Select>
+                                </div>
+                                 <div class=col-md-3>
+                                    <label class="form-label">Email<span style="color:red;">*</span></label>
+                                    <input type="email" class="form-control" id="txt_Email" />
+                                </div>
+                                <div class=col-md-3>
+                                    <label class="form-label">Mobile No<span style="color:red;">*</span></label>
+                                    <input type="number" class="form-control" id="txt_Mobile" />
+                                </div>
+                                <div class=col-md-3>
+                                    <label class="form-label">Adhar No<span style="color:red;">*</span></label>
+                                    <input type="number" class="form-control" id="txt_Adhar" />
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:15px;">
+                                <h5>Addional Details</h5>
+                                <hr />
+                                 <div class=col-md-3>
+                                    <label class="form-label">Address<span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" id="txt_address"/>
+                                </div>
+                                <div class=col-md-3>
+                                    <label class="form-label">Full Address<span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" id="txt_fulladdress" />
+                                </div>
+                                <div class=col-md-3>
+                                    <label class="form-label">PinCode<span style="color:red;">*</span></label>
+                                    <input type="number" class="form-control" id="txt_pincode" />
+                                </div>
+                                <div class=col-md-3>
+                                    <label class="form-label">IdProof<span style="color:red;">*</span></label>
+                                    <input type="file" class="form-control" id="txt_idproof" />
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:10px;">
+                                <div class="row" style="margin-top:10px;">
+                                    <div class="col-md-10"></div>
+                                    <div class="col-md-1"> <button type="submit" class="btn btn-primary" onclick="SaveRegdata();">Submit</button></div>
+                                    <div class="col-md-1"> <button type="submit" class="btn btn-info">Cancel</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+@section Scripts{
+    <script src="~/projectjs/regstudents.js"></script>
+    <script>
+        $(document).ready(function () {
+         
+        });
+</script>
+}
+

@@ -34,7 +34,10 @@ namespace Reetu_School.CommonHandler
         IRequestHandler<GetServiceDetails, object>,
         IRequestHandler<DeleteService,object>,
         IRequestHandler<BindCompany,object>,
-        IRequestHandler<AssignService,object>
+        IRequestHandler<AssignService,object>,
+        IRequestHandler<SaveRegdata,object>,
+        IRequestHandler<SaveProgram, object>,
+        IRequestHandler<GetStudentDetails,object>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         //private readonly string _createdBy;
@@ -563,6 +566,78 @@ namespace Reetu_School.CommonHandler
             catch (Exception ex)
             {
                 Serilog.Log.Error(ex.Message, "BindCompany");
+                data = ResponseResult.ExceptionResponse("Internal Server Error", ex.Message);
+            }
+            return data;
+        }
+        public async Task<object> Handle(SaveRegdata request,CancellationToken cancellationToken)
+        {
+            var res = (dynamic)null;
+            try
+            {
+                var param = new
+                {
+                    Id = request.Id,
+                    FirstName = request.FirstName,
+                    MiddleName = request.MiddleName,
+                    LastName = request.LastName,
+                    FatherFirstName = request.FatherFirstName,
+                    FatherMiddleName = request.FatherMiddleName,
+                    FatherLastName = request.FatherLastName,
+                    DateofBirth = request.DateofBirth,
+                    Gender = request.Gender,
+                    Category = request.Category,
+                    Email = request.Email,
+                    Mobile = request.Mobile,
+                    AdharNo = request.AdharNo,
+                    Address = request.Address,
+                    FullAddress = request.FullAddress,
+                    PinCode = request.PinCode,
+                    Idproof = request.Idproof,
+                    CreatedIP = _createdIP
+                };
+                res = await DataLayer.QueryFirstOrDefaultAsyncWithDBResponse("Proc_SaveRegdata", param);
+            }
+            catch(Exception ex)
+            {
+                Serilog.Log.Error(ex.Message, "SaveRegdata");
+                res = ResponseResult.ExceptionResponse("Internal Server Error", ex.Message);
+            }
+            return res;
+        }
+        public async Task<object> Handle(SaveProgram request, CancellationToken cancellationToken)
+        {
+            var data = (dynamic)null;
+            try
+            {
+                var param = new
+                {
+                    Id = request.Id,
+                    ProgramName = request.ProgramName
+                };
+                data = await DataLayer.QueryFirstOrDefaultAsyncWithDBResponse("Proc_SaveProgram", param);
+            }
+            catch (Exception ex)
+            {
+                Serilog.Log.Error(ex.Message, "SaveProgram");
+                data = ResponseResult.ExceptionResponse("Internal Server Error", ex.Message);
+            }
+            return data;
+        }
+        public async Task<object> Handle(GetStudentDetails request, CancellationToken cancellationToken)
+        {
+            var data = (dynamic)null;
+            try
+            {
+                var param = new
+                {
+                    Id = request.Id
+                };
+                data = await DataLayer.QueryAsync("Proc_GetStudentDetails", param);
+            }
+            catch (Exception ex)
+            {
+                Serilog.Log.Error(ex.Message, "GetStudentDetails");
                 data = ResponseResult.ExceptionResponse("Internal Server Error", ex.Message);
             }
             return data;

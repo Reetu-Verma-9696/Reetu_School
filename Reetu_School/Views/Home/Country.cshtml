@@ -1,95 +1,111 @@
 ﻿@{
     ViewData["Title"] = "Country";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
 }
-<link href="~/css/jquery.datatables.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/fontawesome.min.css" integrity="sha512-B46MVOJpI6RBsdcU307elYeStF2JKT87SsHZfRSkjVi4/iZ3912zXi45X5/CBr/GbCyLx6M1GQtTKYRd52Jxgw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<style>
-    .block {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        background-color: #fff;
-        margin-top: 2px;
-        padding: 23px;
-    }
-
-    .buttons {
-        margin-top: 35px;
-    }
-
-    .clearfix {
-        margin-top: 40px;
-    }
-
-    .table-bordered th,
-    .table-bordered td {
-        padding: 8px;
-        text-align: center;
-    }
-
-</style>
-<div class="block">
-    <h6>Add User Role</h6>
-    <br />
-    <div class="row">
-        <div class="col-md-3">
-            <label>Country<span style="color:red">*</span></label>
-            <input type="text" class="form-control" id="txtCountry" />
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <h5>Add Country</h5>
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="button" class="btn btn-primary waves-effect waves-light"
+                                            data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                            </div>
+                            <hr />
+                            <h5>Country Details</h5>
+                            <div class="table-responsive">
+                                <table id="CountryTable" class="table table-bordered table-striped mb-0">
+                                    <thead class="table-primary">
+                                        <tr>
+                                            <th style="text-align:center;">Sr.No</th>
+                                            <th style="text-align:center;">Country</th>
+                                            <th style="text-align:center;">CountryId</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="Countrylist"></tbody>
+                                </table>
+                            </div>
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-3">
-            <label>CountryId<span style="color:red">*</span></label>
-            <input type="text" class="form-control" id="txtCountryId" />
-        </div>
-        <div class="col-md-3">
-            <button class="btn btn-success btn-sm buttons" onclick="InsertCountry();">Submit</button>
-            <button class="btn btn-info btn-sm buttons" onclick="Cancel();">Cancel</button>
-        </div>
-
     </div>
-    <hr />
-    <div class="clearfix">
-        <h6>Country Details</h6>
-        <div class="row">
-            <table id="Countrylist" class="table-bordered table-striped">
-                <thead style="background-color:#98891e99;">
-                    <tr>
-                        <th>Sr.No</th>
-                        <th>Country</th>
-                        <th>CountryId</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+</div>
 
+<div class="col-sm-6 col-md-4 col-xl-3">
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+         data-bs-keyboard="false" tabindex="-1" role="dialog"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">
+                        Add Country
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <label>Country<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="txtCountry" />
+                    </div>
+                    <div class="col-md-12">
+                        <label>CountryId<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="txtCountryId" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal" onclick="Cancel();">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="InsertCountry();">Save </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 
+
 @section Scripts{
-    <script src="~/js/jquery-3.5.1.min.js"></script>
-    <script src="~/js/jquery.datatables.min.js"></script>
     <script>
         $(document).ready(function () {
             GetCountry(0);
         });
+
         var _Id = '0';
+
         function InsertCountry() {
             var Country = $('#txtCountry').val();
             var CountryId = $('#txtCountryId').val();
 
             if (Country === '') {
-                alert('#txtCountry').focus();
+                $('#txtCountry').focus();
                 return;
             }
             if (CountryId === '') {
-                alert('#txtCountryId').focus();
+                $('#txtCountryId').focus();
                 return;
             }
-          
-            var obj = new Object();
-            obj.Id = _Id;
-            obj.Country = Country;
-            obj.CountryId = CountryId;
+
+            var obj = { Id: _Id, Country: Country, CountryId: CountryId };
+
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You want to submit detail!",
@@ -107,66 +123,55 @@
                         contentType: 'application/json; charset=UTF-8',
                         success: function (data) {
                             if (data.responseCode === 200) {
-                                swal.fire(
+                                Swal.fire(
                                     'Success!',
                                     data.responseMessage,
-                                    'success').then(function () {
-                                        location.reload();
-                                    });
-                            }
-                            else {
-                                console.log(data);
+                                    'success'
+                                ).then(function () {
+                                    location.reload();
+                                });
+                            } else {
                                 alert(data.responseMessage);
                             }
                         },
                         error: function (xhr) {
-                            console.log(xhr);
                             Swal.fire('Exception!', 'INTERNAL SERVER ERROR.', 'error');
                         }
                     });
                 }
             });
         }
+
         function GetCountry(Id) {
-            $.ajax({
-                url: '/Home/GetCountry?Id=' + Id,
-                type: 'GET',
-                dataType: 'json',
-                contentType: 'application/json; charset=UTF-8',
-                success: function (data) {
-                    if (data.responseCode === 200) {
-                        var responseData = data.responseResult;
-                        console.log(responseData);
-                        $('#Countrylist').DataTable({
-                            data: responseData,
-                            destroy: true,
-                            lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-                            columns: [
-                                {
-                                    data: null,
-                                    searchable: false,
-                                    sortable: false,
-                                    className: "text-center",
-                                    render: function (data, type, row, meta) {
-                                        return meta.row + meta.settings._iDisplayStart + 1;
-                                    }
-                                },
-                                { data: "Country" },
-                                { data: "CountryId" },
-                             
-                            ]
+            let obj = { Id: Id };
+            $.post('/Home/GetCountry', obj).done(function (res) {
+                if (res.responseCode == 200) {
+                    res = res.responseResult;
+                    let html = '';
+                    if (Array.isArray(res)) {
+                        res.forEach((v, i) => {
+                            html += `
+                                <tr>
+                                    <td style="text-align:center;">${i + 1}</td>
+                                    <td style="text-align:center;">${v.Country}</td>
+                                    <td style="text-align:center;">${v.CountryId}</td>
+                                </tr>`;
                         });
                     } else {
-                        console.error("Unexpected response code:", data.responseCode);
+                        console.error('Response is not an array:', res);
                     }
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error in AJAX request:", status, error);
+                    $('#Countrylist').empty().append(html);
+                } else {
+                    console.error('Response code not 200:', res.responseCode);
                 }
+            }).fail(function (xhr) {
+                console.log(xhr);
             });
         }
+
         function Cancel() {
             window.location.reload();
         }
+
     </script>
 }
