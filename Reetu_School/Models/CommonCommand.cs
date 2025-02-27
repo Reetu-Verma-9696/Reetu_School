@@ -191,4 +191,11 @@ namespace Reetu_School.Models
     {
         public int Id { get; set; }
     }
+    public class SaveDocDetails : IRequest<object>
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Photo { get; set; }
+      
+    }
 }

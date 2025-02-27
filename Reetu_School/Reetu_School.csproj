@@ -32,4 +32,8 @@
     <None Include="Views\FarmManagement\MemberRegistration.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\upload\Doc\" />
+  </ItemGroup>
+
 </Project>

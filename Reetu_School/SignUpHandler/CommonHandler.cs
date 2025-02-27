@@ -37,7 +37,8 @@ namespace Reetu_School.CommonHandler
         IRequestHandler<AssignService,object>,
         IRequestHandler<SaveRegdata,object>,
         IRequestHandler<SaveProgram, object>,
-        IRequestHandler<GetStudentDetails,object>
+        IRequestHandler<GetStudentDetails,object>,
+        IRequestHandler<SaveDocDetails,object>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         //private readonly string _createdBy;
@@ -638,6 +639,26 @@ namespace Reetu_School.CommonHandler
             catch (Exception ex)
             {
                 Serilog.Log.Error(ex.Message, "GetStudentDetails");
+                data = ResponseResult.ExceptionResponse("Internal Server Error", ex.Message);
+            }
+            return data;
+        }
+        public async Task<object> Handle(SaveDocDetails request, CancellationToken cancellationToken)
+        {
+            var data = (dynamic)null;
+            try
+            {
+                var param = new
+                {
+                    Id = request.Id,
+                    Name = request.Name,
+                    Photo = request.Photo
+                };
+                data = await DataLayer.QueryFirstOrDefaultAsyncWithDBResponse("Proc_SaveDocDetails", param);
+            }
+            catch (Exception ex)
+            {
+                Serilog.Log.Error(ex.Message, "Proc_UploadDocs");
                 data = ResponseResult.ExceptionResponse("Internal Server Error", ex.Message);
             }
             return data;
