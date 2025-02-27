@@ -1,0 +1,152 @@
+﻿@{
+    ViewData["Title"] = "MemberRegistration";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <h5>Member Registration</h5>
+                                </div>
+                                <hr />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>First Name<span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" id="txt_firstName" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Middle Name<span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" id="txt_middleName" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Last Name<span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" id="txt_lastName" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Father First Name<span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" id="txt_FatherfirstName" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Father Middle Name<span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" id="txt_fathermiddleName" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Father Last Name<span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" id="txt_FatherlastName" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Land<span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" id="txt_Land" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>UOM<span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" id="txt_Uom" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Gender<span style="color:red;">*</span></label>
+                                    <select class="form-control" id="ddlGender">
+                                        <option value="0">:: Select ::</option>
+                                        <option value="1">Male</option>
+                                        <option value="2">Female</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Qualification<span style="color:red;">*</span></label>
+                                    <select class="form-control" id="ddlQualification">
+                                        <option value="0">:: Select ::</option>
+                                        <option value="1">HightSchool</option>
+                                        <option value="2">Intermediate</option>
+                                        <option value="3">Diploma</option>
+                                        <option value="4">Other</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Date Of Birth<span style="color:red;">*</span></label>
+                                    <input type="date" class="form-control" id="txt_dob" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Mobile<span style="color:red;">*</span></label>
+                                    <input type="number" class="form-control" id="txt_mobile" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Email<span style="color:red;">*</span></label>
+                                    <input type="email" class="form-control" id="txt_email" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Adhar<span style="color:red;">*</span></label>
+                                    <input type="number" class="form-control" id="txt_Adhar" />
+                                </div>
+                                 <div class="col-md-3">
+                                    <label>Address<span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" id="txt_Address" />
+                                </div>
+                                 <div class="col-md-3">
+                                    <label>Permanant Address<span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" id="txt_PermaAddress" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>PinCode<span style="color:red;">*</span></label>
+                                    <input type="number" class="form-control" id="txt_Pincode" />
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:5px;">
+                                <div class="col-md-10"></div>
+                                <div class="col-md-2">
+                                    <button class="btn btn-sm btn-success" onclick="SaveMemberDetails();">Submit</button>
+                                     <button class="btn btn-sm btn-warning" id="cancel">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <h5>Member List</h5>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="table-primary">
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Member Name</th>
+                                                    <th>Father Name</th>
+                                                    <th>Gender</th>
+                                                    <th>DOB</th>
+                                                    <th>Mobile</th>
+                                                    <th>Email</th>
+                                                    <th>Adhar</th>
+                                                    <th>PinCode</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="memberdetails">
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/projectjs/farmmanagement/memberregistration.js"></script>
+    <script>
+        $(document).ready(function () {
+            GetMemberDetails();
+        })
+       </script>
+}

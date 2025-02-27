@@ -125,6 +125,39 @@
        });
        
     </script>
+    <script>
+        // Reusable alertError function
+        function alertError(errorMessage, inputSelector) {
+            // Check if inputSelector exists
+            if ($(inputSelector).length === 0) {
+                console.error('Invalid selector: ' + inputSelector);
+                return;
+            }
+
+            // Add red border to the input field
+            $(inputSelector).css('border', '2px solid red').focus();
+
+            // Remove any existing error message
+            $(inputSelector).next('.error-text').remove();
+
+            // Dynamically create and show the error message
+            $('<div>')
+                .addClass('error-text') // Optional class for easier removal
+                .text(errorMessage)
+                .css({
+                    color: 'red',
+                    fontSize: '12px',
+                    marginTop: '5px'
+                })
+                .insertAfter(inputSelector); // Place error message below the input field
+        }
+
+        // Clear all errors (Optional Utility Function)
+        function clearErrors(inputSelector) {
+            $(inputSelector).css('border', '').next('.error-text').remove();
+        }
+    </script>
+
    
 }
 

@@ -1,8 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.HttpSys;
+using Newtonsoft.Json;
+using NuGet.Protocol.Core.Types;
+using Reetu_School.Common;
 using Reetu_School.Models;
 using System.Diagnostics;
-
+using System.Text;
 
 namespace Reetu_School.Controllers
 {
@@ -10,11 +14,13 @@ namespace Reetu_School.Controllers
     {
         private readonly IMediator _mediator;
         private IHttpContextAccessor _httpContextAccessor;
+        //private readonly IRequestInfo _requestInfo;
         public HomeController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
 
         {
             _mediator = mediator;
             _httpContextAccessor = httpContextAccessor;
+           // _requestInfo = requestInfo;
         }
 
         public IActionResult Index()
@@ -103,10 +109,10 @@ namespace Reetu_School.Controllers
             var data = await _mediator.Send(obj);
             return Ok(data);
         }
-        [HttpGet]
-        public async Task<IActionResult> GetCountry(int Id)
+        [HttpPost]
+        public async Task<IActionResult> GetCountry(GetCountry obj)
         {
-            var data = await _mediator.Send(new GetCountry { Id = Id });
+            var data = await _mediator.Send(obj);
             return Ok(data);
         }
         [HttpPost]
@@ -129,10 +135,10 @@ namespace Reetu_School.Controllers
             var data = await _mediator.Send(req);
             return Ok(data);
         }
-        [HttpGet]
-        public async Task<IActionResult> GetState(int Id)
+        [HttpPost]
+        public async Task<IActionResult> GetState(GetState obj)
         {
-            var data = await _mediator.Send(new GetState { Id = Id });
+            var data = await _mediator.Send(obj);
             return Ok(data);
         }
         [HttpPost]
@@ -141,10 +147,10 @@ namespace Reetu_School.Controllers
             var data = await _mediator.Send(req);
             return Ok(data);
         }
-        [HttpGet]
-        public async Task<IActionResult> GetCity(int Id)
+        [HttpPost]
+        public async Task<IActionResult> GetCity(GetCity obj)
         {
-            var data = await _mediator.Send(new GetCity { Id = Id });
+            var data = await _mediator.Send(obj);
             return Ok(data);
         }
         [HttpDelete]
@@ -207,6 +213,79 @@ namespace Reetu_School.Controllers
         public async Task<IActionResult> AssignService(AssignService obj)
         {
             var data = await _mediator.Send(obj);
+            return Ok(data);
+        }
+        public IActionResult StudentRegistration()
+        {
+            return View();
+        }
+        public IActionResult ManageStudents()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> SaveRegdata([FromBody] SaveRegdata req)
+        {
+            var data = await _mediator.Send(req);
+            return Ok(data);
+        }
+        public IActionResult AddProgram()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> SaveProgram([FromBody] SaveProgram req)
+        {
+            var data = await _mediator.Send(req);
+            return Ok(data);
+        }
+        [HttpPost]
+        public async Task<IActionResult> GetStudentDetails(GetStudentDetails req)
+        {
+            var data = await _mediator.Send(req);
+            return Ok(data);
+        }
+        public IActionResult ViewProfile()
+        {
+            return View();
+        }
+        public IActionResult UploadDoc()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> SaveDocDetails(string JsonData,IFormFile File)
+        {
+            var res = new AppResponse
+            {
+                Message = "Sorry,An error has been occurred try after sometime."
+            };
+            var request = JsonConvert.DeserializeObject<SaveDocDetails>(JsonData);
+            if(File != null)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("wwwroot/upload/Doc");
+                if (Directory.Exists(sb.ToString()))
+                {
+                    Directory.CreateDirectory((sb.ToString()));
+                }
+                var filename = $"{DateTime.Now.ToString("ddMMyyyyhhmmss")}.png";
+                string originalExt = Path.GetExtension(File.FileName).ToLower();
+                string[] Extensions = { ".png", ".jpg", "webp", ".jpeg" };
+                if (!Extensions.Contains(originalExt))
+                {
+                    res.Message = "You can only upload JPEG,PNG and JPG files";
+                    return Json(res);
+                }
+                sb.Append($"{filename}");
+                using (FileStream fs = System.IO.File.Create(sb.ToString()))
+                {
+                    File.CopyTo(fs);
+                    fs.Flush();
+                }
+                request.Photo = filename;
+            }
+            var data = await _mediator.Send(request);
             return Ok(data);
         }
     }

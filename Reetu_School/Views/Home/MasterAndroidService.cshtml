@@ -1,61 +1,93 @@
 ﻿@{
     ViewData["Title"] = "MasterAndroidService";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
 }
-<link href="~/css/jquery.datatables.min.css" rel="stylesheet" />
-<link href="~/css/bootstrap-toggle.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/fontawesome.min.css" integrity="sha512-B46MVOJpI6RBsdcU307elYeStF2JKT87SsHZfRSkjVi4/iZ3912zXi45X5/CBr/GbCyLx6M1GQtTKYRd52Jxgw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <h5>Add Service</h5>
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="button" class="btn btn-primary waves-effect waves-light"
+                                            data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                            </div>
+                            <hr />
+                            <h5>Service Details</h5>
+                            <div class="table-responsive">
+                                <table id="Servicelist" class="table table-bordered table-striped mb-0">
+                                    <thead class="table-primary">
+                                        <tr>
+                                            <th>Sr.No</th>
+                                            <th>Service Name</th>
+                                            <th>Display Name</th>
+                                            <th>IsActive</th>
+                                            <th>EntryAt</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableServicelist"></tbody>
+                                </table>
+                            </div>
 
-<div class="block">
-    <h6>Add Service</h6>
-    <br />
-    <div class="row">
-        <div class="col-md-3">
-            <label>Service Name<span style="color:red">*</span></label>
-            <input type="text" class="form-control" id="txtServicename" />
-        </div>
-        <div class="col-md-3">
-            <label>Display Name<span style="color:red">*</span></label>
-            <input type="text" class="form-control" id="txtDisplayNames" />
-        </div>
-        <div class="col-md-3">
-            <label class="switch" style="
-    margin-top: 33px;">
-                <input type="checkbox" id="isactive" checked>
-                <span class="slider round"></span>
-            </label><span>Is Active</span>
-           
-        </div>
-
-        <div class="col-md-3">
-            <button class="btn btn-success btn-sm buttons" onclick="AddServices();">Submit</button>
-            <button class="btn btn-info btn-sm buttons" onclick="Cancel();">Cancel</button>
-        </div>
-
-    </div>
-    <hr />
-    <div class="clearfix">
-        <h6>Service Details</h6>
-        <div class="row">
-            <table id="Servicelist" class="table-bordered table-striped">
-                <thead style="background-color:#98891e99;">
-                    <tr>
-                        <th>Sr.No</th>
-                        <th>Service Name</th>
-                        <th>Display Name</th>
-                        <th>IsActive</th>
-                        <th>EntryAt</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="tableServicelist"></tbody>
-            </table>
-
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <div class="col-sm-6 col-md-4 col-xl-3">
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+             data-bs-keyboard="false" tabindex="-1" role="dialog"
+             aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">
+                            Add Service
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-3">
+                            <label>Service Name<span style="color:red">*</span></label>
+                            <input type="text" class="form-control" id="txtServicename" />
+                        </div>
+                        <div class="col-md-3">
+                            <label>Display Name<span style="color:red">*</span></label>
+                            <input type="text" class="form-control" id="txtDisplayNames" />
+                        </div>
+                        <div class="col-md-3">
+                            <label class="switch" style="margin-top: 33px;">
+                                <input type="checkbox" id="isactive" checked>
+                                <span class="slider round"></span>
+                            </label><span>Is Active</span>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal" onclick="Cancel();">
+                            Close
+                        </button>
+                        <button type="button" class="btn btn-primary waves-effect waves-light" onclick="AddServices();">Save </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>>
 </div>
-
-
 @section Scripts{
     <script src="~/js/jquery-3.5.1.min.js"></script>
     <script src="~/js/jquery.datatables.min.js"></script>
@@ -126,7 +158,7 @@
             window.location.reload();
         }
         let GetServiceDetails = (Id) => {
-           
+
             let obj = {
                 Id: _Id
             };
@@ -148,7 +180,7 @@
                                                       </td>
                                                       <td style="text-align:center;">${v.CreatedDate}</td>
                                                        <td><button class="btn btn-success btn-sm" onclick="EditService(${v.Id})"><i class="fa fa-edit"></i></button>
-                                                                &nbsp;<button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                                                &nbsp;<button class="btn btn-danger btn-sm" onclick="DeleteService(${v.Id})"><i class="fa fa-trash"></i></button>
                                                       </td>
                                     </tr>
                                     `;
@@ -163,7 +195,7 @@
                     console.error('Response code not 200:', res.responseCode);
                 }
             }).fail(function (xhr) {
-               
+
                 console.log(xhr);
             });
         };
@@ -178,12 +210,13 @@
                     $('#txtServicename').val(res.Service);
                     $('#txtDisplayNames').val(res.DisplayName);
                     $('#isactive').prop('checked',res.IsActive);
+                    $('#staticBackdrop').modal('show');
                 }
             }).fail(function(xhr){
                 console.log(xhr);
             });
         };
-        
+
         function DeleteService(Id) {
             Swal.fire({
                 title: 'Are you sure?',
@@ -225,3 +258,12 @@
         }
     </script>
 }
+
+
+
+
+
+
+
+
+

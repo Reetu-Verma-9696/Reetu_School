@@ -160,4 +160,42 @@ namespace Reetu_School.Models
         public int CompanyId { get; set; }
         public int ServiceIds { get; set; }
     }
+    public class SaveRegdata : IRequest<object>
+    {
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
+        public string FatherFirstName { get; set; }
+        public string FatherMiddleName { get; set; }
+        public string FatherLastName { get; set; }
+        public string DateofBirth { get; set; }
+        public string Gender { get; set; }
+        public string Category { get; set; }
+        public string Email { get; set; }
+        public string Mobile { get; set; }
+        public string AdharNo { get; set; }
+        public string Address { get; set; }
+        public string FullAddress { get; set; }
+        public int PinCode { get; set; }
+        public string Idproof { get; set; }
+
+
+    }
+    public class SaveProgram : IRequest<object>
+    {
+        public int Id { get; set; }
+        public string ProgramName { get; set; }
+    }
+    public class GetStudentDetails : IRequest<object>
+    {
+        public int Id { get; set; }
+    }
+    public class SaveDocDetails : IRequest<object>
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Photo { get; set; }
+      
+    }
 }

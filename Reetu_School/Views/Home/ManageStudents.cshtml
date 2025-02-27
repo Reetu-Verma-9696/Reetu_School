@@ -1,0 +1,190 @@
+﻿@{
+    ViewData["Title"] = "ManageStudents";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+<style>
+    .fa-eye:before{
+        color: red;
+    }
+
+    .fa-edit:before {
+        color: teal;
+    }
+
+    .fa-file:before {
+        color: blue;
+    }
+</style>
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped mb-0">
+                                        <thead class="table-primary">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Student Name</th>
+                                                <th>Father Name</th>
+                                                <th>Email</th>
+                                                <th>DOB</th>
+                                                <th>Adhar No</th>
+                                                <th>Mobile No</th>
+                                                <th>Gender</th>
+                                                <th>Category</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="studentdetailslist">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-6 col-md-4 col-xl-3">
+    <!-- Modal -->
+    <div class="modal fade" id="docsmodal" data-bs-backdrop="static"
+         data-bs-keyboard="false" tabindex="-1" role="dialog"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">
+                        Upload Documents
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <label>Photo<span style="color:red">*</span></label>
+                        <input type="file" class="form-control" id="txtCity" />
+                    </div>
+                    <div class="col-md-12">
+                        <label>Signature<span style="color:red">*</span></label>
+                        <input type="file" class="form-control" id="txtCityId" />
+                    </div>
+                    <div class="col-md-12">
+                        <label>Address Proof<span style="color:red">*</span></label>
+                        <input type="file" class="form-control" id="txtStateId" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal" onclick="Cancel();">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="InsertCity();">Save </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>>
+@section Scripts{
+    <script>
+        $(document).ready(function(){
+            GetStudentDetails(0);
+        });
+        function GetStudentDetails(Id) {
+            let obj = { Id: Id };
+            $.post('/Home/GetStudentDetails', obj)
+                .done(function (res) {
+                    if (res.responseCode === 200) {
+                        let data = res.responseResult;
+                        let html = '';
+
+                        if (Array.isArray(data) && data.length > 0) {
+                            data.forEach((v, i) => {
+                                html += `
+                                            <tr>
+                                                <td style="text-align:center;">${i + 1}</td>
+                                                <td style="text-align:center;">${v.StudentName}</td>
+                                                <td style="text-align:center;">${v.FatherName}</td>
+                                                <td style="text-align:center;">${v.Email}</td>
+                                                <td style="text-align:center;">${v.DOB}</td>
+                                                <td style="text-align:center;">${v.AdharNo}</td>
+                                                <td style="text-align:center;">${v.Mobile}</td>
+                                                <td style="text-align:center;">${v.Gender}</td>
+                                                <td style="text-align:center;">${v.Category}</td>
+                                                <td style="text-align:center;font-size:21px;cursor:pointer;">
+                                                <div class="btn-group dropstart">
+                                                    <button type="button" class="btn btn-info waves-effect waves-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                              <i class="mdi mdi-spin mdi-cog"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="/Home/ViewProfile"><i class="fa fa-eye"></i>&nbsp;&nbsp;View Profile</a>
+                                                     <a class="dropdown-item" href="/Home/StudentRegistration"><i class="fa fa-edit"></i>&nbsp;&nbsp;Edit</a>
+                                                      <a class="dropdown-item" onclick="uploadDocs();"><i class="fa fa-file">&nbsp;&nbsp;</i>Upload Documents</a>
+                                                    </div>
+                                                </div>
+                                                </td>
+                                            </tr>`;
+                            });
+                        } else {
+                            html = '<tr><td colspan="5" style="text-align:center;">No data found</td></tr>';
+                        }
+
+                        $('#studentdetailslist').html(html);
+                    } else {
+                        console.error('Response code not 200:', res.responseCode, res.responseMessage);
+                        Swal.fire('Error', 'Failed to load city details.', 'error');
+                    }
+                })
+                .fail(function (xhr) {
+                    console.error('Request failed:', xhr);
+                    Swal.fire('Error', 'Unable to fetch data from the server.', 'error');
+                });
+        }
+        //function GetStudentDetails(Id) {
+        //    Id = Id;
+        //    $.ajax({
+        //        url: '/Home/GetStudentDetails?Id=' + Id,
+        //        type: 'POST',
+        //        dataType: 'json',
+        //        contentType: 'application/json; charset=UTF-8',
+        //        success: function (data) {
+        //            console.log(data);
+        //            if (data.responseCode === 200) {
+        //                data = data.responseResult;
+        //                if (data && data.length > 0) {
+        //                    $('#StudentFirstname').val(data[0].FirstName);
+        //                    $('#StudentMiddlename').val(data[0].MiddleName);
+        //                    $('#StudentLastname').val(data[0].LastName);
+        //                    $('#FatherFirstname').val(data[0].FatherFirstName);
+        //                    $('#FatherMiddlename').val(data[0].FatherMiddleName);
+        //                    $('#FatherLastname').val(data[0].FatherLastName);
+        //                    $('#txt_dob').val(data[0].DOB);
+        //                    $('#txt_Gender').val(data[0].Gender);
+        //                    $('#txt_Category').val(data[0].Category);
+        //                    $('#txt_Email').val(data[0].Email);
+        //                    $('#txt_Mobile').val(data[0].Mobile);
+        //                    $('#txt_Adhar').val(data[0].AdharNo);
+        //                    $('#txt_address').val(data[0].Address);
+        //                    $('#txt_fulladdress').val(data[0].FullAddress);
+        //                    $('#txt_pincode').val(data[0].PinCode);
+        //                    $('#txt_idproof').val(data[0].IdProof);
+        //                }
+        //                else {
+        //                    alert('hey');
+        //                }
+        //            }
+        //        },
+        //        error: function (xhr) {
+        //            console.log(xhr);
+        //        }
+        //    });
+        //}
+        function uploadDocs() {
+            $('#docsmodal').modal('show');
+        };
+    </script>
+}

@@ -8,23 +8,28 @@ function btnSubmit() {
     var ImageFile = $('#txt-file').val();
 
     if (Name === '') {
-        alert('#textName').focus();
+        alertError('Enter Category');
+        $('#textName').focus();
         return;
     }
     if (About === '') {
-        alert('#textAbout').focus();
+        alertError('Enter Category');
+        $('#textAbout').focus();
         return;
     }
     if (Marks === '') {
-        alert('#textMarks').focus();
+        alertError('Enter Category');
+        $('#textMarks').focus();
         return;
     }
     if (Subject === '') {
-        alert('#textSubject').focus();
+        alertError('Enter Category');
+        $('#textSubject').focus();
         return;
     }
     if (Description === '') {
-        alert('#textDescription').focus();
+        alertError('Enter Category');
+        $('#textDescription').focus();
         return;
     }
   
