@@ -11,7 +11,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-11">
-                                    <h5>Member Registration</h5>
+                                    <h5>Docs Practice</h5>
                                 </div>
                                 <hr />
                             </div>
@@ -32,6 +32,21 @@
                                     <button class="btn btn-sm btn-warning" id="cancel">Cancel</button>
                                 </div>
                             </div>
+                            <div class="row" style="margin-top:15px;">
+                                <div class="col-md-12 table-responsive">
+                                    <table class="table table-bordered table-striped">
+                                        <thead class="table-primary">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>FirstName</th>
+                                                <th>Photo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="docdetails">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -41,4 +56,9 @@
 </div>
 @section Scripts{
     <script src="~/projectjs/uploaddoc.js"></script>
+    <script>
+        $(document).ready(function(){
+            BindDocsData();
+        });
+    </script>
 }

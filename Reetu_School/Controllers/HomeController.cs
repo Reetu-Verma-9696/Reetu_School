@@ -263,29 +263,29 @@ namespace Reetu_School.Controllers
             var request = JsonConvert.DeserializeObject<SaveDocDetails>(JsonData);
             if(File != null)
             {
-                StringBuilder sb = new StringBuilder();
-                sb.Append("wwwroot/upload/Doc");
-                if (Directory.Exists(sb.ToString()))
+                string folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "upload", "Doc");
+                if (!Directory.Exists(folderPath))
                 {
-                    Directory.CreateDirectory((sb.ToString()));
+                    Directory.CreateDirectory(folderPath);
                 }
+
                 var filename = $"{DateTime.Now.ToString("ddMMyyyyhhmmss")}.png";
-                string originalExt = Path.GetExtension(File.FileName).ToLower();
-                string[] Extensions = { ".png", ".jpg", "webp", ".jpeg" };
-                if (!Extensions.Contains(originalExt))
+                string filePath = Path.Combine(folderPath, filename);
+
+                using (var fs = new FileStream(filePath, FileMode.Create))
                 {
-                    res.Message = "You can only upload JPEG,PNG and JPG files";
-                    return Json(res);
-                }
-                sb.Append($"{filename}");
-                using (FileStream fs = System.IO.File.Create(sb.ToString()))
-                {
-                    File.CopyTo(fs);
-                    fs.Flush();
+                    await File.CopyToAsync(fs);
                 }
                 request.Photo = filename;
+
             }
             var data = await _mediator.Send(request);
+            return Ok(data);
+        }
+        [HttpPost]
+        public async Task<IActionResult> BindDocsData(BindDocsData req)
+        {
+            var data = await _mediator.Send(req);
             return Ok(data);
         }
     }

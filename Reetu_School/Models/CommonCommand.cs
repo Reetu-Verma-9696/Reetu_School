@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System.ComponentModel.DataAnnotations;
 
 namespace Reetu_School.Models
@@ -197,5 +198,9 @@ namespace Reetu_School.Models
         public string Name { get; set; }
         public string Photo { get; set; }
       
+    }
+    public class BindDocsData : IRequest<object>
+    {
+        public int Id { get; set; }
     }
 }

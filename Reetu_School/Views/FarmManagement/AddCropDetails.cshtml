@@ -11,14 +11,34 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-11">
-                                    <h5><i class="fa fa-edit"></i>&nbsp;&nbsp;Add Service</h5>
+                                    <h5>Crop Details</h5>
+                                </div>
+                                <hr />
+                            </div>
+                            <div class="col-md-12">
+                             <table class="table table-bordered table-responsive" id="detailstbl">
+                                 <thead class="table-primary">
+                                     <tr>
+                                         <th>#</th>
+                                         <th>Financial Year</th>
+                                         <th>Month</th>
+                                         <th>Crop Season</th>
+                                         <th>Crop Name</th>
+                                         <th>Crop Diversity</th>
+                                     </tr>
+                                 </thead>
+                                 <tbody id="tbodydetails">
+                                     <tr id="nodata"><td colspan="12" style="color:red;text-align:center;">Record Not Found</td></tr>
+                                 </tbody>
+                             </table>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-10"></div>
+                                <div class="col-md-2" style="margin-top: -14px;">
+                                    <a class="btn btn-sm btn-danger" style="float:right;"><i class="fa fa-minus"></i></a>&nbsp;
+                                    <a class="btn btn-sm btn-success" style="float:right;" id="additem"><i class="fa fa-plus"></i></a>
                                 </div>
                             </div>
-                            <div class="row">
-                               
-                            </div>
-                            <hr />
-                           
                         </div>
                     </div>
                 </div>
@@ -26,3 +46,6 @@
         </div>
     </div>
 </div>
+@section Scripts{
+    <script src="~/projectjs/farmmanagement/cropdetails.js"></script>
+}
