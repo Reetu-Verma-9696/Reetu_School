@@ -212,5 +212,3 @@ function opensendmail() {
     $('#sendmail').modal('show');
 }
 
-
-
