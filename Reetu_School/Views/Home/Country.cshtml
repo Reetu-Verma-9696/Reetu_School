@@ -20,6 +20,12 @@
                                     </button>
                                 </div>
                             </div>
+                            <div class="row col-md-3">
+                               <input type="text" class="form-control" id="text_search" />
+                             
+                            </div>
+                                                            <button class="btn btn-sm btn-primary">Search</button></div>
+                         
                             <div class="row">
                             </div>
                             <hr />
@@ -87,6 +93,11 @@
     <script>
         $(document).ready(function () {
             GetCountry(0);
+
+            $('#txtCountry').autocomplete({
+                autoFocus:False,
+                autoFill:false
+            });
         });
 
         var _Id = '0';
